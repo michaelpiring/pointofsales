@@ -138,9 +138,12 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $pegawai = Pegawai::where('email_pegawai', $request->email)->first();
-        if (!Hash::check($request->password, $pegawai->password_pegawai, [])){
-            return response()->json($validator->errors(), 422);
+        $pegawai = Pegawai::where('email_pegawai', $request['email'])->first();
+        if (!Hash::check($request['password'], $pegawai['password_pegawai'])){
+            return response()->json([
+                'success' => false,
+                'message' => 'Password salah!'
+            ], 400);
         }
 
         if (! $token = auth()->attempt($validator->validated())) {
