@@ -9,10 +9,10 @@ use Illuminate\Notifications\Notifiable;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-
-class User extends Authenticatable implements JWTSubject
+class Pegawai extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+    protected $table = 'tb_pegawai';
 
     /**
      * The attributes that are mass assignable.
@@ -20,9 +20,9 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nama_pegawai',
+        'email_pegawai',
+        'password_pegawai',
     ];
 
     /**
@@ -31,7 +31,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password_pegawai',
         'remember_token',
     ];
 
