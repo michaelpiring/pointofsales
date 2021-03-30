@@ -28,6 +28,7 @@ class CreateTbProduk extends Migration
             $table->enum('status_produk', ['aktif', 'non aktif']);
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
