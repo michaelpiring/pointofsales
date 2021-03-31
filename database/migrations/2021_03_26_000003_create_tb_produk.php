@@ -25,6 +25,7 @@ class CreateTbProduk extends Migration
             $table->integer('berat_produk');
             $table->string('deskripsi_produk', 199);
             $table->string('foto_produk');
+            $table->string('kode_barcode');
             $table->enum('status_produk', ['aktif', 'non aktif']);
             $table->timestamps();
         });
