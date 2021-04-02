@@ -20,6 +20,7 @@ use App\Http\Controllers\AuthController;
 Route::apiResource('toko', TokoController::class);
 Route::apiResource('supplier', SupplierController::class);
 Route::apiResource('promo-diskon', PromoDiskonController::class);
+Route::apiResource('kategori', KategoriController::class);
 
 
 
