@@ -13,6 +13,7 @@ class Pegawai extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
     protected $table = 'tb_pegawai';
+    protected $guard = 'pegawai';
 
     /**
      * The attributes that are mass assignable.
