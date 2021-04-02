@@ -17,11 +17,11 @@ class CreateTbPromoDiskon extends Migration
             $table->increments('id_promo_diskon');
             $table->integer('id_toko')->unsigned();
             $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
+            $table->string('kode_promo')->unique();
+            $table->integer('besar_promo_diskon');
             $table->date('tgl_mulai_diskon');
             $table->date('tgl_berakhir_diskon');
-            $table->integer('besar_promo_diskon');
             $table->text('keterangan');
-            $table->string('gambar_promo_diskon');
             $table->enum('status',['aktif', 'non aktif']);
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class CreateTbPegawai extends Migration
             $table->string('email_pegawai')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password_pegawai');
-            $table->string('nik_pegawai', 15);
+            $table->string('nik_pegawai', 15)->unique();
             $table->string('alamat_pegawai', 100);
             $table->datetime('tgl_lahir_pegawai');
             $table->rememberToken();
