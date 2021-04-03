@@ -14,9 +14,16 @@ class CreateTbProdukRusak extends Migration
     public function up()
     {
         Schema::create('tb_produk_rusak', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id_produk_rusak');
+            $table->integer('id_produk')->unsigned();
+            $table->foreign('id_produk')->references('id_produk')->on('tb_produk')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('id_pegawai')->unsigned();
+            $table->foreign('id_pegawai')->references('id_pegawai')->on('tb_pegawai')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('jumlah_rusak');
+            $table->string('keterangan', 100);
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
