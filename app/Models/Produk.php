@@ -11,12 +11,15 @@ class Produk extends Model
     protected $table = 'tb_produk';
     protected $primaryKey = 'id_produk';
     protected $fillable = [
+        'id_supplier',
+        'id_kategori',
         'nama_produk',
         'stok',
         'harga_produk',
         'berat_produk',
         'deskripsi_produk',
         'foto_produk',
+        'kode_barcode',
         'status_produk'
     ];
     public $timestamps = true;

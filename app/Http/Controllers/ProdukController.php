@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use App\Models\Supplier;
+use App\Models\Pegawai;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Produk\CreateProdukRequest;
-
+use App\Http\Requests\Produk\UpdateProdukRequest;
 use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Support\Facades\Hash;
 
 class ProdukController extends Controller
 {
@@ -85,7 +88,7 @@ class ProdukController extends Controller
     public function show(Produk $produk)
     {
         if($produk){
-            $lokasi_gambar = 'Suplier'.$produk['id_supplier'].'/'.$produk['foto_produk'];
+            $lokasi_gambar = 'Supplier'.$produk['id_supplier'].'/'.$produk['foto_produk'];
             $produk['gambar_produk'] = $lokasi_gambar;
             return response()->json([
                 'success' => true,
@@ -133,11 +136,14 @@ class ProdukController extends Controller
                 $data_pegawai = Pegawai::where('id_pegawai',$data['id_pegawai'])->first();
                 if(Hash::check($data['password_pegawai'],$data_pegawai['password_pegawai'])){
                     $result = $produk->update([
+                        'id_supplier'        => $data['id_supplier'],
+                        'id_kategori'        => $data['id_kategori'],
                         'nama_produk'        => $data['nama_produk'],
                         'stok'               => $data['stok'],
                         'harga_produk'       => $data['harga_produk'],
                         'berat_produk'       => $data['berat_produk'],
-                        'deskripsi_produk'   => $data['deskripsi_produk']
+                        'deskripsi_produk'   => $data['deskripsi_produk'],
+                        'kode_barcode'       => $data['kode_barcode'],
                     ]);
                     if($result){
                         return response()->json([
@@ -145,6 +151,12 @@ class ProdukController extends Controller
                             'message'   => 'Berhasil meng-update Produk',
                             'data'      => $result
                         ], 201);
+                    }
+                    else{
+                        return response()->json([
+                            'success'   => false,
+                            'message'   => 'Gagal meng-update Produk',
+                        ], 401);
                     }
                 }
                 else{

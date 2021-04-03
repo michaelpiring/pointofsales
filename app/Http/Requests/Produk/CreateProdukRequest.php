@@ -24,13 +24,15 @@ class CreateProdukRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_supplier' => 'required',
-            'nama_produk' => 'required',
+            'id_supplier' => 'required|numeric',
+            'id_kategori' => 'required|numeric',
+            'nama_produk' => 'required|max:60',
             'stok' => 'required|numeric',
             'harga_produk' => 'required|numeric',
             'berat_produk' => 'required|numeric',
-            'deskripsi_produk' => 'required',
+            'deskripsi_produk' => 'required|max:199',
             'foto_produk' => 'required|image:jpeg,png,jpg|max:2048',
+            'kode_barcode' => 'required',
         ];
     }
 }

@@ -24,11 +24,15 @@ class UpdateProdukRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_produk' => 'required',
+            'id_supplier' => 'required|numeric',
+            'id_kategori' => 'required|numeric',
+            'nama_produk' => 'required|max:60',
             'stok' => 'required|numeric',
             'harga_produk' => 'required|numeric',
             'berat_produk' => 'required|numeric',
-            'deskripsi_produk' => 'required',
+            'deskripsi_produk' => 'required|max:199',
+            'kode_barcode' => 'required',
+            'id_pegawai' => 'required|numeric',
             'password_pegawai' => 'required'
         ];
     }
