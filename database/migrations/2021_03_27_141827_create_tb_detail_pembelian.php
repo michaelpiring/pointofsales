@@ -15,6 +15,8 @@ class CreateTbDetailPembelian extends Migration
     {
         Schema::create('tb_detail_pembelian', function (Blueprint $table) {
             $table->increments('id_detail_pembelian');
+            $table->integer('id_pembelian')->unsigned();
+            $table->foreign('id_pembelian')->references('id_pembelian')->on('tb_pembelian')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_toko')->unsigned();
             $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_pegawai')->unsigned();

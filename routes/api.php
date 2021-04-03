@@ -24,6 +24,8 @@ Route::apiResource('kategori', KategoriController::class);
 Route::apiResource('produk', ProdukController::class);
 Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
 
+Route::apiResource('pembelian', PembelianController::class);
+
 
 
 Route::group([

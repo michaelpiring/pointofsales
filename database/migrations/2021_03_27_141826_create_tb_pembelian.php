@@ -17,8 +17,6 @@ class CreateTbPembelian extends Migration
             $table->increments('id_pembelian');
             $table->integer('id_toko')->unsigned();
             $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
-            $table->integer('id_detail_pembelian')->unsigned();
-            $table->foreign('id_detail_pembelian')->references('id_detail_pembelian')->on('tb_detail_pembelian')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_pegawai')->unsigned();
             $table->foreign('id_pegawai')->references('id_pegawai')->on('tb_pegawai')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_produk')->unsigned();
@@ -26,6 +24,7 @@ class CreateTbPembelian extends Migration
             $table->integer('id_supplier')->unsigned();
             $table->foreign('id_supplier')->references('id_supplier')->on('tb_supplier')->onDelete('restrict')->onUpdate('cascade');
             $table->dateTime('tgl_pembelian');
+            $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
     }
