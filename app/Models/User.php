@@ -13,6 +13,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $guard = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +26,11 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'alamat_user',
+        'tgl_lahir_user',
+        'jenis_kelamin_user',
+        'total_poin_user',
+        'saldo_hutang'
     ];
 
     /**

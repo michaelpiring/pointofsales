@@ -21,9 +21,15 @@ class Pegawai extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
+        'id_toko',
+        'id_jabatan',
+        'id_divisi',
         'nama_pegawai',
         'email_pegawai',
         'password_pegawai',
+        'nik_pegawai',
+        'alamat_pegawai',
+        'tgl_lahir_pegawai'
     ];
 
     /**

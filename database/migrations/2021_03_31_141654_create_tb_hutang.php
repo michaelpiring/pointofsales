@@ -22,7 +22,6 @@ class CreateTbHutang extends Migration
             $table->datetime('tgl_hutang');
             $table->integer('besar_hutang');
             $table->enum('status',['lunas','belum lunas']);
-            
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

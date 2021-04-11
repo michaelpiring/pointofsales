@@ -19,7 +19,8 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['loginUser', 'registerUser', 'loginPegawai', 'registerPegawai']]);
+        $this->middleware('auth:api', ['except' => ['loginUser', 'registerUser']]);
+        $this->middleware('auth:pegawai', ['except' => ['loginPegawai', 'registerPegawai']]);
     }
 
     /**
@@ -42,7 +43,7 @@ class AuthController extends Controller
             throw new \Exception('Data login salah!');
         }
 
-        if (! $token = auth()->attempt($validator->validated())) {
+        if (! $token = auth('api')->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -131,23 +132,26 @@ class AuthController extends Controller
     public function loginPegawai(Request $request){
     	$validator = Validator::make($request->all(), [
             'email' => 'required',
-            'password' => 'required',
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        $pegawai = Pegawai::where('email_pegawai', $request['email'])->first();
-        if (!Hash::check($request['password'], $pegawai['password_pegawai'])){
+        $pegawai = Pegawai::where('email_pegawai', $request->email)->first();
+        if (!Hash::check($request->password, $pegawai->password_pegawai, [])){
             return response()->json([
                 'success' => false,
                 'message' => 'Password salah!'
             ], 400);
         }
 
-        if (! $token = auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (! $token = auth('pegawai')->attempt($validator->validated())) {
+            return response()->json([
+                'error' => 'Unauthorized',
+                'data'  => $validator
+            ], 401);
         }
 
         return $this->createNewToken($token);
@@ -171,7 +175,7 @@ class AuthController extends Controller
 
         $pegawai = Pegawai::create(array_merge(
                     $validator->validated(),
-                    ['password_pegawai' => bcrypt($request->password)]
+                    ['password_pegawai' => bcrypt($request->password_pegawai)]
                 ));
 
         return response()->json([

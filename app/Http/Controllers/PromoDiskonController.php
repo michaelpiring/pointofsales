@@ -67,13 +67,21 @@ class PromoDiskonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(PromoDiskon $promo)
+    public function show(PromoDiskon $promodiskon)
     {
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail Data Promo',
-            'data'    => $promo
-        ], 200);
+        if($promodiskon){
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Data Promo',
+                'data'    => $promodiskon
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal dalam menampilkan data Promo',
+            ], 409);
+        }
     }
 
     /**

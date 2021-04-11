@@ -17,7 +17,8 @@ class CreateTbKeranjang extends Migration
             $table->increments('id_keranjang');
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
-            $table->integer('id_produk');
+            $table->integer('jumlah_produk');
+            $table->integer('total_harga');
         });
         Schema::enableForeignKeyConstraints();
     }

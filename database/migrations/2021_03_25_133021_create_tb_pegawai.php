@@ -15,6 +15,12 @@ class CreateTbPegawai extends Migration
     {
         Schema::create('tb_pegawai', function (Blueprint $table) {
             $table->increments('id_pegawai');
+            $table->integer('id_toko')->unsigned();
+            $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('id_jabatan')->unsigned();
+            $table->foreign('id_jabatan')->references('id_jabatan')->on('tb_jabatan')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('id_divisi')->unsigned();
+            $table->foreign('id_divisi')->references('id_divisi')->on('tb_divisi')->onDelete('restrict')->onUpdate('cascade');
             $table->string('nama_pegawai');
             $table->string('email_pegawai')->unique();
             $table->timestamp('email_verified_at')->nullable();

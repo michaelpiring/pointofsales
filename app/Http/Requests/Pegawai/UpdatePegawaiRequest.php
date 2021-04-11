@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Pegawai;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
+class UpdatePegawaiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,14 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required',
-            'alamat_user' => 'required|min:5|max:100',
-            'tgl_lahir_user' => 'required|date',
-            'jenis_kelamin_user' => 'required',
+            'id_toko',
+            'id_jabatan',
+            'id_divisi',
+            'nama_pegawai',
+            'nik_pegawai',
+            'alamat_pegawai',
+            'tgl_lahir_pegawai',
+            'password_pegawai'
         ];
     }
 }
