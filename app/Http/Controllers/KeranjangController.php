@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DetailKeranjang;
 use App\Models\Keranjang;
+use App\Models\Produk;
 use App\Http\Requests\Keranjang\CreateDetailKeranjangRequest;
 
 class KeranjangController extends Controller
@@ -50,24 +51,71 @@ class KeranjangController extends Controller
     {
         $data = $request->validated();
         if($data){
+            $data_produk = Produk::where('id_produk', $data['id_produk'])->first();
+
+            //ambil data keranjang user
             $data_keranjang_user = Keranjang::where('id_user', $data['id_user'])->first();
-            $data['id_keranjang'] = $data_keranjang_user['id_keranjang'];
-            $create_detail = DetailKeranjang::create($data);
-                if($create_detail){
-                    
-                   return response()->json([
-                   'success' => true,
-                   'message' => 'Berhasil Menambahkan Produk ke Keranjang',
-                   'data'    => $data 
-                ], 201);
+
+            //cek stok barang
+            if($data['jumlah_produk']>$data_produk['stok']){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Maaf, Stok Barang Habis!',
+                ], 404);   
+            }
+            else{
+                //cek apakah produk udah ada di keranjang ato belum
+                $cek_detail_keranjang = DetailKeranjang::where('id_keranjang', $data_keranjang_user['id_keranjang'])
+                ->where('id_produk', $data['id_produk'])->first();
+
+                //kalo produk udah ada di keranjang, lakukan update jumlah produk, ga perlu create data detail baru
+                if($cek_detail_keranjang){
+
+                    //ASK! ini produk mau ditambah nilainya dengan jumlah produk di request, atau mau diupdate nilainya?
+                    //ASK! Pengecekan stok mau dilakukan di penambahan barang keranjang, atau saat checkout?
+    
+                    $update_detail_keranjang1 = DetailKeranjang::where('id_keranjang', $data_keranjang_user['id_keranjang'])
+                    ->where('id_produk', $data['id_produk'])->update([
+                        'jumlah_produk' => $data['jumlah_produk']
+                    ]);
+    
+                    return response()->json([
+                            'success' => true,
+                            'message' => 'Berhasil Mengupdate Jumlah Produk di Keranjang',
+                            'data'    => $data
+                    ], 201);   
                 }
+                else{
+                    //kalo produk belom ada di detail, buat data detail baru
+                    $data['id_keranjang'] = $data_keranjang_user['id_keranjang'];
+                    $create_detail = DetailKeranjang::create($data);
+                    
+                    if($create_detail){
+    
+                        //update jumlah produk dan total harga di keranjang, kayaknya mo dihapus aja sesuai request revisi
+                        //$data_keranjang_user['jumlah_produk'] = $data_keranjang_user['jumlah_produk']+$data['jumlah_produk'];
+                        //$data_keranjang_user['total_harga'] = $data_keranjang_user['total_harga'] + $data_produk['harga_produk']*$data['jumlah_produk'];
+    
+                        //$update_keranjang = $data_keranjang_user->update([
+                            //'jumlah_produk' => $data_keranjang_user['jumlah_produk'],
+                           // 'total_harga'   => $data_keranjang_user['total_harga']
+                        //]);
+    
+                        return response()->json([
+                            'success' => true,
+                            'message' => 'Berhasil Menambahkan Produk ke Keranjang',
+                            'data'    => $data 
+                        ], 201);
+                    }
+                }      
+            }
         }
         else{
             return response()->json([
                 'success' => false,
                 'message' => 'Data tidak Valid!',
-            ], 404);   
-        }
+            ], 404);  
+        }        
     }
 
     /**

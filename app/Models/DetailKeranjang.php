@@ -14,6 +14,7 @@ class DetailKeranjang extends Model
         'id_keranjang',
         'id_produk',
         'jumlah_produk'
+        //tambahin total harga
     ];
     public $timestamps = true;
 }
