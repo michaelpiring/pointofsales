@@ -17,7 +17,7 @@ class KeranjangController extends Controller
      */
     public function index()
     {
-        $data = DetailKeranjang::all();
+        $data = Keranjang::all();
         if($data){
             return response()->json([
                 'success' => true,
@@ -150,13 +150,14 @@ class KeranjangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(DetailKeranjang $detailkeranjang)
+    public function show($id)
     {
-        if($detailkeranjang){
+        if($id){
+            $data = DetailKeranjang::where('id_keranjang', $id)->get();
             return response()->json([
                 'success' => true,
                 'message' => 'Detail Data Keranjang',
-                'data'    => $detailkeranjang
+                'data'    => $data
             ], 200);
         }
         else{
