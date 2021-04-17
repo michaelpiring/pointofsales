@@ -73,10 +73,23 @@ class KeranjangController extends Controller
 
                     //ASK! ini produk mau ditambah nilainya dengan jumlah produk di request, atau mau diupdate nilainya?
                     //ASK! Pengecekan stok mau dilakukan di penambahan barang keranjang, atau saat checkout?
+
+                    $total_harga = $data_produk['harga_produk']*$data['jumlah_produk'];
+                    $data['total_harga'] = $total_harga;
     
                     $update_detail_keranjang1 = DetailKeranjang::where('id_keranjang', $data_keranjang_user['id_keranjang'])
                     ->where('id_produk', $data['id_produk'])->update([
-                        'jumlah_produk' => $data['jumlah_produk']
+                        'jumlah_produk' => $data['jumlah_produk'],
+                        'total_harga' => $total_harga
+                    ]);
+
+                    //hitung jumlah produk di detail keranjang
+                    $jumlah_produk = DetailKeranjang::where('id_keranjang', $data_keranjang_user['id_keranjang'])
+                    ->sum('jumlah_produk');
+
+                    //Update jumlah produk di tb_keranjang
+                    $update_keranjang1 = Keranjang::where('id_user', $data['id_user'])->update([
+                        'jumlah_produk' => $jumlah_produk
                     ]);
     
                     return response()->json([
@@ -88,6 +101,10 @@ class KeranjangController extends Controller
                 else{
                     //kalo produk belom ada di detail, buat data detail baru
                     $data['id_keranjang'] = $data_keranjang_user['id_keranjang'];
+
+                    //hitung total harga
+                    $total_harga = $data_produk['harga_produk']*$data['jumlah_produk'];
+                    $data['total_harga'] = $total_harga;
                     $create_detail = DetailKeranjang::create($data);
                     
                     if($create_detail){
@@ -100,6 +117,15 @@ class KeranjangController extends Controller
                             //'jumlah_produk' => $data_keranjang_user['jumlah_produk'],
                            // 'total_harga'   => $data_keranjang_user['total_harga']
                         //]);
+
+                        //hitung jumlah produk di detail keranjang
+                        $jumlah_produk = DetailKeranjang::where('id_keranjang', $data_keranjang_user['id_keranjang'])
+                        ->sum('jumlah_produk');
+
+                        //Update jumlah produk di tb_keranjang
+                        $update_keranjang = Keranjang::where('id_user', $data['id_user'])->update([
+                            'jumlah_produk' => $jumlah_produk
+                        ]);
     
                         return response()->json([
                             'success' => true,

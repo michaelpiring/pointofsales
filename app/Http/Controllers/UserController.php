@@ -58,8 +58,7 @@ class UserController extends Controller
             if($create_nasabah){
                 $create_keranjang = Keranjang::create([
                     'id_user' => $create_nasabah['id'],
-                    'jumlah_produk' => 0,
-                    'total_harga' => 0
+                    'jumlah_produk' => 0
                 ]);
                 if($create_keranjang){
                    return response()->json([

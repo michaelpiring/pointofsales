@@ -30,6 +30,8 @@ Route::apiResource('pembelian', PembelianController::class);
 
 Route::apiResource('keranjang', KeranjangController::class);
 
+Route::apiResource('checkout', CheckoutController::class);
+
 
 
 Route::group([

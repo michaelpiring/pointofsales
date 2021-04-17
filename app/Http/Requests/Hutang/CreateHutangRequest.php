@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Checkout;
+namespace App\Http\Requests\Hutang;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCheckoutRequest extends FormRequest
+class CreateHutangRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CreateCheckoutRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,9 +24,7 @@ class CreateCheckoutRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_user' => 'required|numeric',
-            'kode_promo' => 'required',
-            'metode_pembayaran' => 'required'
+            //
         ];
     }
 }

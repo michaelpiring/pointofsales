@@ -13,7 +13,8 @@ class DetailKeranjang extends Model
     protected $fillable = [
         'id_keranjang',
         'id_produk',
-        'jumlah_produk'
+        'jumlah_produk',
+        'total_harga'
         //tambahin total harga
     ];
     public $timestamps = true;

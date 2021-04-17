@@ -13,8 +13,10 @@ class Checkout extends Model
         'id_keranjang',
         'id_user',
         'tgl_checkout',
+        'kode_promo',
         'metode_pembayaran',
-        'total_checkout'
+        'total_checkout',
+        'status'
     ];
     public $timestamps = true;
 }

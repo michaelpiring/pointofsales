@@ -20,8 +20,10 @@ class CreateTbCheckout extends Migration
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->datetime('tgl_checkout');
+            $table->string('kode_promo');
             $table->enum('metode_pembayaran',['cash','split','hutang']);
             $table->integer('total_checkout');
+            $table->enum('status',['sudah dibayar', 'belum dibayar']);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

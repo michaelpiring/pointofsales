@@ -20,6 +20,7 @@ class CreateTbDetailKeranjang extends Migration
             $table->integer('id_produk')->unsigned();
             $table->foreign('id_produk')->references('id_produk')->on('tb_produk')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('jumlah_produk');
+            $table->integer('total_harga');
             $table->timestamps();
         });
     }

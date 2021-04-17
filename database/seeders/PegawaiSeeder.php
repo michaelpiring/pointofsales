@@ -18,6 +18,9 @@ class PegawaiSeeder extends Seeder
     {
         DB::table('tb_pegawai')->insert([
             'id_pegawai' => 1,
+            'id_toko' => 1,
+            'id_jabatan' => 1,
+            'id_divisi' => 1,
     		'nama_pegawai' =>'admin',
             'email_pegawai' => 'admin@gmail.com',
             'password_pegawai' => bcrypt('admin'),
