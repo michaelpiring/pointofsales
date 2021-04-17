@@ -89,13 +89,22 @@ class PembelianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(DetailPembelian $detailpembelian)
+    public function show($id)
     {
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail Data Pembelian',
-            'data'    => $detailpembelian
-        ], 200);
+        if($id){
+            $data = DetailPembelian::where('id_pembelian', $id)->get();
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Data Pembelian',
+                'data'    => $data
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Dalam Menampilkan Data Detail Pembelian',
+            ], 409);
+        }
     }
 
     /**
