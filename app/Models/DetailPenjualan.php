@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Penjualan extends Model
+class DetailPenjualan extends Model
 {
     use HasFactory;
-    protected $table = 'tb_penjualan';
-    protected $primaryKey = 'id_penjualan';
+    protected $table = 'tb_detail_penjualan';
+    protected $primaryKey = 'id_detail_penjualan';
     protected $fillable = [
+        'id_penjualan',
         'id_toko',
         'id_user',
         'id_pegawai',
+        'id_produk',
         'tgl_penjualan',
-        'total_penjualan',
-        'status'
+        'jumlah_produk',
+        'total_harga'
     ];
     public $timestamps = true;
 }

@@ -32,6 +32,8 @@ Route::apiResource('keranjang', KeranjangController::class);
 
 Route::apiResource('checkout', CheckoutController::class);
 
+Route::apiResource('penjualan', PenjualanController::class);
+
 
 
 Route::group([

@@ -13,7 +13,7 @@ class CreatePenjualanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class CreatePenjualanRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id_checkout' => 'required|numeric',
+            'id_pegawai' => 'required|numeric',
+            'id_toko' => 'required|numeric',
+            'metode_pembayaran' => 'required',
+            'jumlah_bayar' => 'required|numeric'
         ];
     }
 }
