@@ -9,6 +9,8 @@ use App\Models\Keranjang;
 use App\Models\DetailKeranjang;
 use App\Models\Produk;
 use App\Models\User;
+use App\Models\Hutang;
+
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -114,12 +116,60 @@ class PenjualanController extends Controller
 
             if($data['metode_pembayaran']=="hutang"){
                 //create data penjualan & hutang
+                $data['id_user'] = $data_user['id'];
+                $data['tgl_penjualan'] = now();
+                $data['total_penjualan'] = $data_checkout['total_checkout'];
+                $data['status'] = 'belum dibayar';
+
+                $create_penjualan = Penjualan::create($data);
+
+                if($create_penjualan){
+                    //create data hutang
+                    $create_hutang = Hutang::create([
+                        'id_checkout'   => $data['id_checkout'],
+                        'id_user'       => $data_checkout['id_user'],
+                        'tgl_hutang'    => now(),
+                        'besar_hutang'  => $data_checkout['total_checkout'],
+                        'status'        => 'belum lunas'
+                    ]);
+
+                    //create detail penjualan
+                    $data_detail_keranjangs = DetailKeranjang::where('id_keranjang', $data_keranjang['id_keranjang'])->get();
+
+                    foreach($data_detail_keranjangs as $data_detail_keranjang){
+                        DetailPenjualan::create([
+                            'id_penjualan'  => $create_penjualan['id_penjualan'],
+                            'id_toko'       => $create_penjualan['id_toko'],
+                            'id_user'       => $create_penjualan['id_user'],
+                            'id_pegawai'    => $create_penjualan['id_pegawai'],
+                            'id_produk'     => $data_detail_keranjang['id_produk'],
+                            'tgl_penjualan' => now(),
+                            'jumlah_produk' => $data_detail_keranjang['jumlah_produk'],
+                            'total_harga'   => $data_detail_keranjang['total_harga']
+                        ]);
+                        
+                        //update stok di tb produk
+                        $data_produk = Produk::where('id_produk', $data_detail_keranjang['id_produk'])->first();
+
+                        $kurangi_stok = $data_produk['stok'] - $data_detail_keranjang['jumlah_produk'];
+                        $update_stok = Produk::where('id_produk', $data_detail_keranjang['id_produk'])->update([
+                            'stok' => $kurangi_stok
+                        ]);
+
+                    }
+                    //update status checkout disini
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Transaksi Hutang Berhasil!',
+                        'data'    => $create_hutang 
+                    ], 201);
+                }
             }
 
             if($data['metode_pembayaran']=="split"){
                 //create data penjualan & hutang (split payment)
             }
-
         }
         else{
             return response()->json([
