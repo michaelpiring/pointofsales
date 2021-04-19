@@ -11,8 +11,10 @@ class StokOpname extends Model
     protected $table = 'tb_stok_opname';
     protected $primaryKey = 'id_stok_opname';
     protected $fillable = [
+        'id_toko',
         'id_pegawai',
-        'tgl_stok_opname'
+        'tgl_stok_opname',
+        'status'
     ];
     public $timestamps = false;
 }

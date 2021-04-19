@@ -19,12 +19,12 @@ class CreateTbDetailStokOpname extends Migration
             $table->foreign('id_stok_opname')->references('id_stok_opname')->on('tb_stok_opname')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_produk')->unsigned();
             $table->foreign('id_produk')->references('id_produk')->on('tb_produk')->onDelete('restrict')->onUpdate('cascade');
-            $table->integer('stok_awal');
             $table->integer('stok_masuk');
             $table->integer('stok_keluar');
             $table->integer('stok_sistem');
             $table->integer('stok_fisik');
             $table->integer('selisih');
+            $table->text('keterangan');
         });
     }
 

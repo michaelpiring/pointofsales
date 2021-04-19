@@ -17,12 +17,12 @@ class CreateTbDetailStokOpnameSementara extends Migration
             $table->increments('id_detail_stok_opname_sementara');
             $table->integer('id_stok_opname');
             $table->integer('id_produk');
-            $table->integer('stok_awal');
             $table->integer('stok_masuk');
             $table->integer('stok_keluar');
             $table->integer('stok_sistem');
             $table->integer('stok_fisik');
             $table->integer('selisih');
+            $table->text('keterangan');
         });
     }
 
