@@ -8,6 +8,8 @@ use App\Models\Keranjang;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 
+use Hash;
+
 class UserController extends Controller
 {
     /**
@@ -64,7 +66,7 @@ class UserController extends Controller
                    return response()->json([
                    'success' => true,
                    'message' => 'Berhasil Registrasi user',
-                   'data'    => $data 
+                   'data'    => $create_nasabah
                 ], 201);
                 }
             }
@@ -123,7 +125,7 @@ class UserController extends Controller
         if($user){
             $data = $request->validated();
             if($data){
-                if(Hash::check($data['password'],$nasabah['password'])){
+                if(Hash::check($data['password'],$user['password'])){
                     $result = $user->update([
                         'name'            => $data['name'],
                         'alamat_user'         => $data['alamat_user'],
@@ -134,6 +136,7 @@ class UserController extends Controller
                         return response()->json([
                             'success' => true,
                             'message' => 'Berhasil Mengganti Biodata User',
+                            'data' => $user
                         ], 201);
                     }
                 }

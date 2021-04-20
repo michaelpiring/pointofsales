@@ -73,7 +73,7 @@ class ProdukController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Berhasil menambahkan Produk',
-                    'data'    => $data,
+                    'data'    => $create_produk,
                 ], 201);
             }
         }
@@ -138,9 +138,11 @@ class ProdukController extends Controller
                     $result = $produk->update([
                         'id_supplier'        => $data['id_supplier'],
                         'id_kategori'        => $data['id_kategori'],
+                        'id_toko'            => $data['id_toko'],
                         'nama_produk'        => $data['nama_produk'],
                         'stok'               => $data['stok'],
                         'harga_produk'       => $data['harga_produk'],
+                        'harga_beli'         => $data['harga_beli'],
                         'berat_produk'       => $data['berat_produk'],
                         'deskripsi_produk'   => $data['deskripsi_produk'],
                         'kode_barcode'       => $data['kode_barcode'],
