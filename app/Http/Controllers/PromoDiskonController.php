@@ -113,9 +113,10 @@ class PromoDiskonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PromoDiskon $promo)
+    public function destroy($id)
     {
-        if($promo['status']!='non aktif'){
+        $promo = PromoDiskon::where('id_promo_diskon',$id)->first();
+        if($promo['status'] != 'non aktif'){
             $non_aktif = $promo->update([
                 'status' => 'non aktif'
             ]);
@@ -130,6 +131,7 @@ class PromoDiskonController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Gagal Menonaktifkan Promo',
+                    'data' => $promo
                 ], 409);
             }
         }  
