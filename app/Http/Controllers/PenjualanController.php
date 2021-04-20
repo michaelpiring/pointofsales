@@ -191,7 +191,7 @@ class PenjualanController extends Controller
                     $data['id_user'] = $data_user['id'];
                     $data['tgl_penjualan'] = now();
                     $data['total_penjualan'] = $data['jumlah_bayar'];
-                    $data['status'] = 'belum dibayar'; //revisi status tb penjualan jadi->(lunas/hutang/split)
+                    $data['status'] = 'sudah dibayar'; //revisi status tb penjualan jadi->(lunas/hutang/split)
     
                     $create_penjualan = Penjualan::create($data);
     
@@ -243,7 +243,7 @@ class PenjualanController extends Controller
                         $update_status_checkout = Checkout::where('id_checkout', $data['id_checkout'])->update([
                             'status' => 'sudah dibayar'
                         ]);
-                        
+
                         return response()->json([
                             'success' => true,
                             'message' => 'Transaksi Split Berhasil!',

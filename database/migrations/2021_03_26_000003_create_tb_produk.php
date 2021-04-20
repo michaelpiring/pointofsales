@@ -19,9 +19,12 @@ class CreateTbProduk extends Migration
             $table->foreign('id_supplier')->references('id_supplier')->on('tb_supplier')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_kategori')->unsigned();
             $table->foreign('id_kategori')->references('id_kategori')->on('tb_kategori')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('id_toko')->unsigned();
+            $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
             $table->string('nama_produk', 60);
             $table->integer('stok');
             $table->integer('harga_produk');
+            $table->integer('harga_beli');
             $table->integer('berat_produk');
             $table->string('deskripsi_produk', 199);
             $table->string('foto_produk');

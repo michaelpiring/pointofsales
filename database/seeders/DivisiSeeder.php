@@ -18,7 +18,11 @@ class DivisiSeeder extends Seeder
     {
         DB::table('tb_divisi')->insert([
             'id_divisi' => 1,
-            'divisi' => 'Toko'
+            'divisi' => 'Kasir'
+        ]);
+        DB::table('tb_divisi')->insert([
+            'id_divisi' => 2,
+            'divisi' => 'Gudang'
         ]);
     }
 }
