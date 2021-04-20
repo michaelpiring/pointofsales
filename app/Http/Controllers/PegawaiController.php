@@ -157,7 +157,7 @@ class PegawaiController extends Controller
             if($data){
                 if(Hash::check($data['password_lama'],$pegawai['password_pegawai'])){
                     $new_password = bcrypt($data['password_baru']);
-                    $admin->update([
+                    $pegawai->update([
                         'password_pegawai' => $new_password
                     ]);
 
