@@ -34,7 +34,7 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2018-03-10',
+                'tgl_pembelian' => '2020-03-10',
     		]);
             
             DetailPembelian::create([
@@ -57,7 +57,7 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2018-06-10',
+                'tgl_pembelian' => '2020-06-10',
     		]);
             
             DetailPembelian::create([
@@ -80,7 +80,7 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2018-09-10',
+                'tgl_pembelian' => '2020-09-10',
     		]);
             
             DetailPembelian::create([
@@ -103,7 +103,7 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2018-12-10',
+                'tgl_pembelian' => '2020-12-10',
     		]);
             
             DetailPembelian::create([
@@ -126,7 +126,7 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2019-03-10',
+                'tgl_pembelian' => '2021-03-10',
     		]);
             
             DetailPembelian::create([
@@ -149,7 +149,7 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2019-06-10',
+                'tgl_pembelian' => '2021-06-10',
     		]);
             
             DetailPembelian::create([
@@ -172,7 +172,7 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2019-09-10',
+                'tgl_pembelian' => '2021-09-10',
     		]);
             
             DetailPembelian::create([
@@ -195,7 +195,7 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2019-12-10',
+                'tgl_pembelian' => '2021-12-10',
     		]);
             
             DetailPembelian::create([
