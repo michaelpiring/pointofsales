@@ -11,6 +11,7 @@ class Kategori extends Model
     protected $table = 'tb_kategori';
     protected $primaryKey = 'id_kategori';
     protected $fillable = [
+        'id_toko',
         'kategori'
     ];
     public $timestamps = true;

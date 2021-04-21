@@ -18,34 +18,42 @@ class KategoriSeeder extends Seeder
     {
         DB::table('tb_kategori')->insert([
             'id_kategori' => 1,
+            'id_toko' => 1,
     		'kategori' =>'Makanan'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 2,
+            'id_toko' => 1,
     		'kategori' =>'Minuman'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 3,
+            'id_toko' => 1,
     		'kategori' =>'Sembako'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 4,
+            'id_toko' => 1,
     		'kategori' =>'Peralatan Mandi & Mencuci'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 5,
+            'id_toko' => 1,
     		'kategori' =>'Alat Tulis'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 6,
+            'id_toko' => 1,
     		'kategori' =>'Perlengkapan Rumah Tangga'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 7,
+            'id_toko' => 1,
     		'kategori' =>'Obat-Obatan'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 8,
+            'id_toko' => 1,
     		'kategori' =>'Lain-lain'
         ]);
 

@@ -24,6 +24,7 @@ class CreateKategoriRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_toko' => 'required|numeric',
             'kategori' => 'required|max:45'
         ];
     }

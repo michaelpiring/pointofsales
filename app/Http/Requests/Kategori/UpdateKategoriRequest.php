@@ -24,6 +24,7 @@ class UpdateKategoriRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_toko' => 'required|numeric',
             'kategori' => 'required|max:45',
             'id_pegawai' => 'required|numeric',
             'password_pegawai' => 'required'

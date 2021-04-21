@@ -111,6 +111,7 @@ class KategoriController extends Controller
                 $data_pegawai = Pegawai::where('id_pegawai',$data['id_pegawai'])->first();
                 if(Hash::check($data['password_pegawai'],$data_pegawai['password_pegawai'])){
                     $result = $kategori->update([
+                        'id_toko'          => $data['id_toko'],
                         'kategori'             => $data['kategori'],
                     ]);
                     if($result){

@@ -15,6 +15,8 @@ class CreateTbKategori extends Migration
     {
         Schema::create('tb_kategori', function (Blueprint $table) {
             $table->increments('id_kategori');
+            $table->integer('id_toko')->unsigned();
+            $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
             $table->string('kategori', 45);
             $table->timestamps();
         });
