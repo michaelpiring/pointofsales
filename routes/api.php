@@ -35,6 +35,7 @@ Route::apiResource('checkout', CheckoutController::class);
 Route::apiResource('penjualan', PenjualanController::class);
 
 Route::apiResource('retur', ReturController::class);
+Route::put('retur/{retur}/validasiRetur', [ReturController::class,'validasiRetur']);
 
 Route::apiResource('report', ReportController::class);
 

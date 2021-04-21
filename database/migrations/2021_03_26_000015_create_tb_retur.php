@@ -15,14 +15,18 @@ class CreateTbRetur extends Migration
     {
         Schema::create('tb_retur', function (Blueprint $table) {
             $table->increments('id_retur');
+            $table->integer('id_toko')->unsigned();
+            $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_produk')->unsigned();
             $table->foreign('id_produk')->references('id_produk')->on('tb_produk')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_pegawai')->unsigned();
             $table->foreign('id_pegawai')->references('id_pegawai')->on('tb_pegawai')->onDelete('restrict')->onUpdate('cascade');
-            $table->datetime('tgl_retur');
-            $table->integer('jumlah_retur');
-            $table->enum('kondisi',['rusak','expire']);
+            $table->integer('id_supplier')->unsigned();
+            $table->foreign('id_supplier')->references('id_supplier')->on('tb_supplier')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('jumlah_barang');
             $table->string('keterangan', 100);
+            $table->datetime('tgl_retur');
+            $table->enum('status', ['valid','tidak_valid']);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
