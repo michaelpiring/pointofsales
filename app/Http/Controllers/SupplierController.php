@@ -120,7 +120,7 @@ class SupplierController extends Controller
                         return response()->json([
                             'success'   => true,
                             'message'   => 'Berhasil meng-update data Supplier',
-                            'data'      => $data
+                            'data'      => $result
                         ], 201);
                     }
                 }

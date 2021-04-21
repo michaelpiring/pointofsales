@@ -67,13 +67,14 @@ class PromoDiskonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(PromoDiskon $promodiskon)
+    public function show($id)
     {
-        if($promodiskon){
+        $promo = PromoDiskon::where('id_promo_diskon',$id)->first();
+        if($promo){
             return response()->json([
                 'success' => true,
                 'message' => 'Detail Data Promo',
-                'data'    => $promodiskon
+                'data'    => $promo
             ], 200);
         }
         else{

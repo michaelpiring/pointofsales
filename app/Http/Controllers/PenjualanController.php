@@ -269,7 +269,20 @@ class PenjualanController extends Controller
      */
     public function show($id)
     {
-        //
+        if($id){
+            $data = DetailPenjualan::where('id_penjualan', $id)->get();
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Data Penjualan',
+                'data'    => $data
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Dalam Menampilkan Data Detail Penjualan',
+            ], 409);
+        }
     }
 
     /**
