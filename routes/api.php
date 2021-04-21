@@ -34,7 +34,16 @@ Route::apiResource('checkout', CheckoutController::class);
 
 Route::apiResource('penjualan', PenjualanController::class);
 
+Route::apiResource('retur', ReturController::class);
 
+Route::apiResource('report', ReportController::class);
+
+Route::apiResource('stok-opname', StokOpnameController::class);
+Route::post('stok-opname/{stok-opname}/stokOpnameSementara', [StokOpnameController::class,'stokOpnameProdukSementara']);
+Route::get('stok-opname/{stok-opname}/showstokOpnameSementara', [StokOpnameController::class,'showStokOpnameSementara']);
+Route::post('stok-opname/{stok-opname}/storeStokOpname', [StokOpnameController::class,'storeStokOpname']);
+Route::put('stok-opname/{stok-opname}/approveStokOpname', [StokOpnameController::class,'approveStokOpname']);
+Route::put('stok-opname/{stok-opname}/unapproveStokOpname', [StokOpnameController::class,'unapproveStokOpname']);
 
 Route::group([
     'middleware' => 'api',
