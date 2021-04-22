@@ -40,6 +40,9 @@ Route::apiResource('retur', ReturController::class);
 Route::put('retur/{retur}/validasiRetur', [ReturController::class,'validasiRetur']);
 
 Route::apiResource('report', ReportController::class);
+Route::post('/report/purchase', [ReportController::class, 'purchaseChart']);
+Route::post('/report/sales', [ReportController::class, 'salesChart']);
+Route::get('/report',[ReportController::class, 'index']);
 
 Route::apiResource('stok-opname', StokOpnameController::class);
 Route::post('stok-opname/{stok-opname}/stokOpnameSementara', [StokOpnameController::class,'stokOpnameProdukSementara']);
