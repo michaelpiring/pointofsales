@@ -23,9 +23,7 @@ Route::apiResource('promo-diskon', PromoDiskonController::class);
 Route::apiResource('kategori', KategoriController::class);
 Route::apiResource('produk', ProdukController::class);
 Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
-Route::get('produk/{kode_barcode}', function($kode_barcode){
-    return 'produk'.$kode_barcode;
-});
+Route::post('/produk', [ProdukController::class,'showByBarcode']);
 //Route::get('produk', [ProdukController::class,'showByBarcode']);
 
 Route::apiResource('user', UserController::class);

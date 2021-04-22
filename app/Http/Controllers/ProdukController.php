@@ -104,6 +104,25 @@ class ProdukController extends Controller
         }
     }
 
+    public function showByBarcode(Request $request)
+    {
+        $kode_barcode = $request->input('kode_barcode');
+        $data_produk = Produk::where('kode_barcode', $kode_barcode)->first();
+        if($data_produk){            
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Data Produk',
+                'data'    => $data_produk
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Produk tidak Ditemukan!',
+            ], 409);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
