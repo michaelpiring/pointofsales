@@ -18,6 +18,7 @@ class CreateTbKategori extends Migration
             $table->integer('id_toko')->unsigned();
             $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
             $table->string('kategori', 45);
+            $table->enum('status',['aktif','nonaktif']);
             $table->timestamps();
         });
     }

@@ -54,6 +54,7 @@ class SupplierController extends Controller
             ], 404);
         }
         else{
+            $data['status'] = 'aktif';
             $create_supplier = Supplier::create($data);
             if($create_supplier){
                 return response()->json([
@@ -134,8 +135,38 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Supplier $supplier)
     {
-        //
+        if($supplier['status']!='nonaktif'){
+            $supplier->update([
+                'status' => 'nonaktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil menonaktifkan Supplier',
+                'data'      => $supplier
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal menonaktifkan supplier',
+        ], 409);
+    }
+
+    public function aktivasiSupplier(Supplier $supplier){
+        if($supplier['status']!='aktif'){
+            $supplier->update([
+                'status'=>'aktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil mengaktifkan Supplier',
+                'data'    => $supplier
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal aktivasi Supplier',
+        ], 409);
     }
 }

@@ -13,7 +13,8 @@ class Supplier extends Model
     protected $fillable = [
         'nama_supplier',
         'alamat_supplier',
-        'no_telepon_supplier'
+        'no_telepon_supplier',
+        'status'
     ];
     public $timestamps = true;
 }

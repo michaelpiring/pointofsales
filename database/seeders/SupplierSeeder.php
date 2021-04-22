@@ -25,6 +25,7 @@ class SupplierSeeder extends Seeder
                 'nama_supplier' => $faker->company,
                 'alamat_supplier' => $faker->address,
     			'no_telepon_supplier' => $faker->numberBetween($min = 1000000, $max = 9000000),
+                'status' => 'aktif'
     		]);
         }
     }

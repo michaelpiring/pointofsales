@@ -12,7 +12,8 @@ class Kategori extends Model
     protected $primaryKey = 'id_kategori';
     protected $fillable = [
         'id_toko',
-        'kategori'
+        'kategori',
+        'status'
     ];
     public $timestamps = true;
 }

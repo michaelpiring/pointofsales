@@ -196,4 +196,23 @@ class UserController extends Controller
             'message' => 'Gagal aktivasi User!',
         ], 409);
     }
+
+    public function showUser(Request $request)
+    {
+        $status = $request->input('status');
+        $data_user = User::where('status', $status)->get();
+        if($data_user){            
+            return response()->json([
+                'success' => true,
+                'message' => 'Data User',
+                'data'    => $data_user
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'User tidak Ditemukan!',
+            ], 409);
+        }
+    }
 }

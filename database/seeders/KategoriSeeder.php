@@ -19,42 +19,50 @@ class KategoriSeeder extends Seeder
         DB::table('tb_kategori')->insert([
             'id_kategori' => 1,
             'id_toko' => 1,
-    		'kategori' =>'Makanan'
+    		'kategori' =>'Makanan',
+            'status' => 'aktif'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 2,
             'id_toko' => 1,
-    		'kategori' =>'Minuman'
+    		'kategori' =>'Minuman',
+            'status' => 'aktif'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 3,
             'id_toko' => 1,
-    		'kategori' =>'Sembako'
+    		'kategori' =>'Sembako',
+            'status' => 'aktif'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 4,
             'id_toko' => 1,
-    		'kategori' =>'Peralatan Mandi & Mencuci'
+    		'kategori' =>'Peralatan Mandi & Mencuci',
+            'status' => 'aktif'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 5,
             'id_toko' => 1,
-    		'kategori' =>'Alat Tulis'
+    		'kategori' =>'Alat Tulis',
+            'status' => 'aktif'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 6,
             'id_toko' => 1,
-    		'kategori' =>'Perlengkapan Rumah Tangga'
+    		'kategori' =>'Perlengkapan Rumah Tangga',
+            'status' => 'aktif'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 7,
             'id_toko' => 1,
-    		'kategori' =>'Obat-Obatan'
+    		'kategori' =>'Obat-Obatan',
+            'status' => 'aktif'
         ]);
         DB::table('tb_kategori')->insert([
             'id_kategori' => 8,
             'id_toko' => 1,
-    		'kategori' =>'Lain-lain'
+    		'kategori' =>'Lain-lain',
+            'status' => 'aktif'
         ]);
 
     }

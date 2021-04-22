@@ -152,4 +152,21 @@ class TokoController extends Controller
             'message' => 'Gagal Non aktifkan Toko',
         ], 409);
     }
+
+    public function aktivasiToko(Toko $toko){
+        if($toko['status']!='aktif'){
+            $toko->update([
+                'status'=>'aktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil mengaktifkan Toko',
+                'data'    => $toko
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal aktivasi Toko',
+        ], 409);
+    }
 }

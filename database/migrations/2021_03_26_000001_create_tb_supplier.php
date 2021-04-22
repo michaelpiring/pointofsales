@@ -18,6 +18,7 @@ class CreateTbSupplier extends Migration
             $table->string('nama_supplier', 45);
             $table->string('alamat_supplier', 199);
             $table->string('no_telepon_supplier', 15);
+            $table->enum('status',['aktif','nonaktif']);
             $table->timestamps();
         });
     }

@@ -53,6 +53,7 @@ class KategoriController extends Controller
             ], 404);
         }
         else{
+            $data['status'] = 'aktif';
             $create_kategori = Kategori::create($data);
             if($create_kategori){
                 return response()->json([
@@ -134,6 +135,36 @@ class KategoriController extends Controller
      */
     public function destroy(Kategori $kategori)
     {
-        //
+        if($kategori){
+            $kategori->update([
+                'status' => 'nonaktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil Menonaktifkan Kategori',
+                'data'    => $kategori
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal Menonaktifkan Kategori',
+        ], 409);
+    }
+
+    public function aktivasiKategori(Kategori $kategori){
+        if($kategori['status']!='aktif'){
+            $kategori->update([
+                'status'=>'aktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil mengaktifkan Kategori',
+                'data'    => $kategori
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal aktivasi Kategori',
+        ], 409);
     }
 }

@@ -18,9 +18,15 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::apiResource('toko', TokoController::class);
+Route::put('toko/{toko}/aktivasi_toko', [TokoController::class,'aktivasiToko']);
+
 Route::apiResource('supplier', SupplierController::class);
+Route::put('supplier/{supplier}/aktivasi_supplier', [SupplierController::class,'aktivasiSupplier']);
+
 Route::apiResource('promo-diskon', PromoDiskonController::class);
+
 Route::apiResource('kategori', KategoriController::class);
+Route::put('kategori/{kategori}/aktivasi_kategori', [KategoriController::class,'aktivasiKategori']);
 
 Route::apiResource('produk', ProdukController::class);
 Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
@@ -28,6 +34,7 @@ Route::post('/produk', [ProdukController::class,'showByBarcode']);
 
 Route::apiResource('user', UserController::class);
 Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);
+Route::post('/user/getUser', [UserController::class,'showUser']);
 
 Route::apiResource('pembelian', PembelianController::class);
 
