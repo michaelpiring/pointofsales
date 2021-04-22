@@ -24,15 +24,15 @@ class CreatePegawaiRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_toko',
-            'id_jabatan',
-            'id_divisi',
-            'nama_pegawai',
-            'email_pegawai',
-            'password_pegawai',
-            'nik_pegawai',
-            'alamat_pegawai',
-            'tgl_lahir_pegawai'
+            'id_toko' => 'required|numeric',
+            'id_jabatan' => 'required|numeric',
+            'id_divisi' => 'required|numeric',
+            'nama_pegawai' => 'required',
+            'email_pegawai' => 'required|unique:tb_pegawai',
+            'password_pegawai' => 'required',
+            'nik_pegawai' => 'required|unique:tb_pegawai',
+            'alamat_pegawai' => 'required',
+            'tgl_lahir_pegawai' => 'required|date'
         ];
     }
 }

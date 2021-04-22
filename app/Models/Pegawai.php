@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
+
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Pegawai extends Authenticatable implements JWTSubject
@@ -14,6 +16,7 @@ class Pegawai extends Authenticatable implements JWTSubject
     use HasFactory, Notifiable;
     protected $table = 'tb_pegawai';
     protected $guard = 'pegawai';
+    protected $primaryKey = 'id_pegawai';
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +32,8 @@ class Pegawai extends Authenticatable implements JWTSubject
         'password_pegawai',
         'nik_pegawai',
         'alamat_pegawai',
-        'tgl_lahir_pegawai'
+        'tgl_lahir_pegawai',
+        'status'
     ];
 
     /**

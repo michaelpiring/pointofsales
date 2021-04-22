@@ -28,6 +28,7 @@ class PegawaiSeeder extends Seeder
             'nik_pegawai' => '123456789',
             'alamat_pegawai' => 'Jalan Bali',
             'tgl_lahir_pegawai' => '1999-12-01',
+            'status' => 'aktif'
         ]);
 
         $faker = Faker::create();
@@ -47,6 +48,7 @@ class PegawaiSeeder extends Seeder
                 'nik_pegawai' => $faker->numberBetween($min = 100000, $max = 200000),
                 'alamat_pegawai' => $faker->address,
                 'tgl_lahir_pegawai' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'status' => 'aktif'
     		]);
         }
     }

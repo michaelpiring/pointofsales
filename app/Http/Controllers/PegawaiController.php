@@ -8,6 +8,8 @@ use App\Http\Requests\Pegawai\UpdatePegawaiRequest;
 use App\Http\Requests\Pegawai\UpdatePasswordPegawaiRequest;
 use App\Models\Pegawai;
 
+use Hash;
+
 class PegawaiController extends Controller
 {
     /**
@@ -52,20 +54,20 @@ class PegawaiController extends Controller
         $data = $request->validated();
         if($data){
             $data['password_pegawai'] = bcrypt($data['password_pegawai']);
-            //$data['status_admin'] = 'aktif';
+            $data['status'] = 'aktif';
             $create_pegawai = Pegawai::create($data);
             if($create_pegawai){
                 return response()->json([
                     'success' => true,
                     'message' => 'Berhasil Registrasi Pegawai',
-                    'data'    => $data 
+                    'data'    => $create_pegawai 
                 ], 201);
             }
         }
         else{
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal Dalam Registrasi Admin',
+                'message' => 'Gagal Dalam Registrasi Pegawai',
             ], 401);
         }
     }
@@ -117,7 +119,7 @@ class PegawaiController extends Controller
             $data = $request->validated();
             if($data){
                 if(Hash::check($data['password_pegawai'],$pegawai['password_pegawai'])){
-                    $pegawai->update([
+                    $result = $pegawai->update([
                         'id_toko' => $data['id_toko'],
                         'id_jabatan' => $data['id_jabatan'],
                         'id_divisi' => $data['id_divisi'],
@@ -128,7 +130,8 @@ class PegawaiController extends Controller
                     ]);
                     return response()->json([
                         'success' => true,
-                        'message' => 'Berhasil Mengubah Data Pegawai'
+                        'message' => 'Berhasil Mengubah Data Pegawai',
+                        'data' => $pegawai
                     ],201);
                 }
                 else{
@@ -141,12 +144,12 @@ class PegawaiController extends Controller
             else{
                 return response()->json([
                     'success' => false,
-                    'message' => 'Gagal registrasi, Data tidak valid!', 
+                    'message' => 'Gagal Update Data Pegawai, Data tidak valid!', 
                 ],409);
         }
         return response()->json([
             'success' => false,
-            'message' => 'data tidak ditemukan'
+            'message' => 'Data Pegawai tidak ditemukan!'
         ],404);
         }
     }
@@ -163,7 +166,7 @@ class PegawaiController extends Controller
 
                     return response()->json([
                         'success' => true,
-                        'message' => 'Berhasil Mengubah Password'
+                        'message' => 'Berhasil Mengubah Password Pegawai'
                     ],201);
                 }
                 else{
@@ -178,13 +181,14 @@ class PegawaiController extends Controller
                     'success' => false,
                     'message' => 'Data tidak valid!', 
                 ],409);
+            }
         }
         return response()->json([
             'success' => false,
-            'message' => 'data tidak ditemukan'
+            'message' => 'Data Pegawai tidak ditemukan!'
         ],404);
-        }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -192,8 +196,38 @@ class PegawaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pegawai $pegawai)
     {
-        //
+        if($pegawai['status']!='nonaktif'){
+            $pegawai->update([
+                'status' => 'nonaktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil menonaktifkan Pegawai',
+                'data'      => $pegawai
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal menonaktifkan Pegawai',
+        ], 409);
+    }
+
+    public function aktivasiPegawai(Pegawai $pegawai){
+        if($pegawai['status']!='aktif'){
+            $pegawai->update([
+                'status'=>'aktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil mengaktifkan Pegawai',
+                'data'    => $pegawai
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal aktivasi Pegawai!',
+        ], 409);
     }
 }

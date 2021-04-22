@@ -36,6 +36,10 @@ Route::apiResource('user', UserController::class);
 Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);
 Route::post('/user/getUser', [UserController::class,'showUser']);
 
+Route::apiResource('pegawai', PegawaiController::class);
+Route::put('pegawai/{pegawai}/aktivasi_pegawai', [PegawaiController::class,'aktivasiPegawai']);
+Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
+
 Route::apiResource('pembelian', PembelianController::class);
 
 Route::apiResource('keranjang', KeranjangController::class);

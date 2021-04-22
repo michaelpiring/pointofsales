@@ -24,14 +24,14 @@ class UpdatePegawaiRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_toko',
-            'id_jabatan',
-            'id_divisi',
-            'nama_pegawai',
-            'nik_pegawai',
-            'alamat_pegawai',
-            'tgl_lahir_pegawai',
-            'password_pegawai'
+            'id_toko' => 'required|numeric',
+            'id_jabatan' => 'required|numeric',
+            'id_divisi' => 'required|numeric',
+            'nama_pegawai' => 'required',
+            'nik_pegawai' => 'required',
+            'alamat_pegawai' => 'required',
+            'tgl_lahir_pegawai' => 'required|date',
+            'password_pegawai' => 'required'
         ];
     }
 }

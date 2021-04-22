@@ -27,7 +27,8 @@ class CreateTbPegawai extends Migration
             $table->string('password_pegawai');
             $table->string('nik_pegawai', 15)->unique();
             $table->string('alamat_pegawai', 100);
-            $table->datetime('tgl_lahir_pegawai');
+            $table->date('tgl_lahir_pegawai');
+            $table->enum('status',['aktif','nonaktif']);
             $table->rememberToken();
             $table->timestamps();
         });
