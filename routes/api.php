@@ -21,10 +21,10 @@ Route::apiResource('toko', TokoController::class);
 Route::apiResource('supplier', SupplierController::class);
 Route::apiResource('promo-diskon', PromoDiskonController::class);
 Route::apiResource('kategori', KategoriController::class);
+
 Route::apiResource('produk', ProdukController::class);
 Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
 Route::post('/produk', [ProdukController::class,'showByBarcode']);
-//Route::get('produk', [ProdukController::class,'showByBarcode']);
 
 Route::apiResource('user', UserController::class);
 Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);

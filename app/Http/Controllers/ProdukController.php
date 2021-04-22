@@ -67,7 +67,7 @@ class ProdukController extends Controller
             $nama_gambar = basename($simpan_gambar);
             $data['foto_produk'] = $nama_gambar;
 
-            $data['status_produk'] = 'aktif';
+            $data['status_produk'] = '1';
             $create_produk = Produk::create($data);
             if($create_produk){
                 return response()->json([
@@ -198,9 +198,9 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        if($produk['status_produk']!='non aktif'){
+        if($produk['status_produk']!='0'){
             $produk->update([
-                'status_produk' => 'non aktif'
+                'status_produk' => '0'
             ]);
             return response()->json([
                 'success' => true,
@@ -215,9 +215,9 @@ class ProdukController extends Controller
     }
 
     public function aktivasiProduk(Produk $produk){
-        if($produk['status_produk']!='aktif'){
+        if($produk['status_produk']!='1'){
             $produk->update([
-                'status_produk'=>'aktif'
+                'status_produk'=>'1'
             ]);
             return response()->json([
                 'success' => true,

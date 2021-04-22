@@ -29,7 +29,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 250,
             'deskripsi_produk' => 'Roti Coklat',
             'foto_produk' => '',
-            'kode_barcode' => '0000001'
+            'kode_barcode' => '0000001',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 2,
@@ -43,7 +44,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 100,
             'deskripsi_produk' => 'Minuman Energi',
             'foto_produk' => '',
-            'kode_barcode' => '0000002'
+            'kode_barcode' => '0000002',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 3,
@@ -57,7 +59,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 1000,
             'deskripsi_produk' => 'Beras 1kg',
             'foto_produk' => '',
-            'kode_barcode' => '0000003'
+            'kode_barcode' => '0000003',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 4,
@@ -71,7 +74,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 250,
             'deskripsi_produk' => 'Sabun Batang Lifebuoy',
             'foto_produk' => '',
-            'kode_barcode' => '0000004'
+            'kode_barcode' => '0000004',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 5,
@@ -85,7 +89,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 50,
             'deskripsi_produk' => 'Pensil Kayu',
             'foto_produk' => '',
-            'kode_barcode' => '0000005'
+            'kode_barcode' => '0000005',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 6,
@@ -99,7 +104,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 250,
             'deskripsi_produk' => 'Sapu Lidi',
             'foto_produk' => '',
-            'kode_barcode' => '0000006'
+            'kode_barcode' => '0000006',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 7,
@@ -113,7 +119,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 75,
             'deskripsi_produk' => 'Panadol Sakit Kepala',
             'foto_produk' => '',
-            'kode_barcode' => '0000007'
+            'kode_barcode' => '0000007',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 8,
@@ -127,7 +134,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 500,
             'deskripsi_produk' => 'Susu Bubuk Bayi',
             'foto_produk' => '',
-            'kode_barcode' => '0000008'
+            'kode_barcode' => '0000008',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 9,
@@ -141,7 +149,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 200,
             'deskripsi_produk' => 'Biskuit',
             'foto_produk' => '',
-            'kode_barcode' => '0000009'
+            'kode_barcode' => '0000009',
+            'status_produk' => '1'
         ]);
         DB::table('tb_produk')->insert([
             'id_produk' => 10,
@@ -155,7 +164,8 @@ class ProdukSeeder extends Seeder
             'berat_produk' => 250,
             'deskripsi_produk' => 'Air Mineral Aqua',
             'foto_produk' => '',
-            'kode_barcode' => '0000010'
+            'kode_barcode' => '0000010',
+            'status_produk' => '1'
         ]);
     }
 }

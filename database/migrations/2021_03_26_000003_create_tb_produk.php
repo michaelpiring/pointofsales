@@ -29,7 +29,7 @@ class CreateTbProduk extends Migration
             $table->string('deskripsi_produk', 199);
             $table->string('foto_produk');
             $table->string('kode_barcode')->unique();
-            $table->enum('status_produk', ['aktif', 'non aktif']);
+            $table->enum('status_produk', ['1', '0']);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
