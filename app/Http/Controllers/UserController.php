@@ -162,8 +162,38 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if($user['status']!='nonaktif'){
+            $user->update([
+                'status' => 'nonaktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil menonaktifkan user',
+                'data'      => $user
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal menonaktifkan user',
+        ], 409);
+    }
+
+    public function aktivasiUser(User $user){
+        if($user['status']!='aktif'){
+            $user->update([
+                'status'=>'aktif'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil mengaktifkan User',
+                'data'    => $user
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal aktivasi User!',
+        ], 409);
     }
 }

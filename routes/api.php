@@ -27,6 +27,7 @@ Route::post('/produk', [ProdukController::class,'showByBarcode']);
 //Route::get('produk', [ProdukController::class,'showByBarcode']);
 
 Route::apiResource('user', UserController::class);
+Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);
 
 Route::apiResource('pembelian', PembelianController::class);
 

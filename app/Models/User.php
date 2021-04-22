@@ -30,7 +30,8 @@ class User extends Authenticatable implements JWTSubject
         'tgl_lahir_user',
         'jenis_kelamin_user',
         'total_poin_user',
-        'saldo_hutang'
+        'saldo_hutang',
+        'status'
     ];
 
     /**

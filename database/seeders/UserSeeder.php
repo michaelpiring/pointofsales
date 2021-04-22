@@ -27,6 +27,7 @@ class UserSeeder extends Seeder
             'jenis_kelamin_user' => 'laki laki',
             'total_poin_user' => 0,
             'saldo_hutang' => 0,
+            'status' => 'aktif'
         ]);
 
         DB::table('tb_keranjang')->insert([
@@ -51,6 +52,7 @@ class UserSeeder extends Seeder
                 'jenis_kelamin_user' => 'laki laki',
                 'total_poin_user' => 0,
                 'saldo_hutang' => 0,
+                'status' => 'aktif',
     		]);
             DB::table('tb_keranjang')->insert([
                 'id_keranjang' => $i,
@@ -70,6 +72,7 @@ class UserSeeder extends Seeder
                 'jenis_kelamin_user' => 'perempuan',
                 'total_poin_user' => 0,
                 'saldo_hutang' => 0,
+                'status' => 'aktif',
     		]);
             DB::table('tb_keranjang')->insert([
                 'id_keranjang' => $i,
