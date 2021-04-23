@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Hash;
 
+use Faker\Factory as Faker;
+use Faker\Provider\Barcode;
+
 class ProdukController extends Controller
 {
     /**
@@ -48,6 +51,7 @@ class ProdukController extends Controller
      */
     public function store(CreateProdukRequest $request)
     {
+        $faker = Faker::create();
         $data = $request->validated();
         if(!$data){
             return response()->json([
@@ -68,6 +72,7 @@ class ProdukController extends Controller
             $data['foto_produk'] = $nama_gambar;
 
             $data['status_produk'] = '1';
+            $data['kode_barcode'] = $faker->isbn10;
             $create_produk = Produk::create($data);
             if($create_produk){
                 return response()->json([

@@ -34,7 +34,6 @@ class CreateProdukRequest extends FormRequest
             'berat_produk' => 'required|numeric',
             'deskripsi_produk' => 'required|max:199',
             'foto_produk' => 'required|image:jpeg,png,jpg|max:2048',
-            'kode_barcode' => 'required',
         ];
     }
 }

@@ -30,7 +30,7 @@ Route::put('kategori/{kategori}/aktivasi_kategori', [KategoriController::class,'
 
 Route::apiResource('produk', ProdukController::class);
 Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
-Route::post('/produk', [ProdukController::class,'showByBarcode']);
+Route::post('/produk/showByBarcode', [ProdukController::class,'showByBarcode']);
 
 Route::apiResource('user', UserController::class);
 Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);

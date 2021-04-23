@@ -33,7 +33,6 @@ class UpdateProdukRequest extends FormRequest
             'harga_beli' => 'required|numeric',
             'berat_produk' => 'required|numeric',
             'deskripsi_produk' => 'required|max:199',
-            'kode_barcode' => 'required',
             'id_pegawai' => 'required|numeric',
             'password_pegawai' => 'required'
         ];
