@@ -72,7 +72,7 @@ class ProdukController extends Controller
             $data['foto_produk'] = $nama_gambar;
 
             $data['status_produk'] = '1';
-            $data['kode_barcode'] = $faker->isbn10;
+            $data['kode_barcode'] = $faker->ean13;
             $create_produk = Produk::create($data);
             if($create_produk){
                 return response()->json([
