@@ -116,10 +116,18 @@ class PenjualanController extends Controller
                             'status' => 'sudah dibayar'
                         ]);
 
+                        //hitung poin user
+                        $total_poin = $data_checkout['total_checkout']/1000;
+                        
+                        $update_poin_user = User::where('id', $data_user['id'])->update([
+                            'total_poin_user' => $data_user['total_poin_user']+$total_poin
+                        ]);
+
                         return response()->json([
                             'success' => true,
                             'message' => 'Transaksi Berhasil!',
-                            'data'    => $data 
+                            'data'    => $data,
+                            'poin'    => $total_poin 
                         ], 201);
                     }
                 }
