@@ -15,6 +15,8 @@ class CreateTbHutang extends Migration
     {
         Schema::create('tb_hutang', function (Blueprint $table) {
             $table->increments('id_hutang');
+            $table->integer('id_penjualan')->unsigned();
+            $table->foreign('id_penjualan')->references('id_penjualan')->on('tb_penjualan')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_checkout')->unsigned();
             $table->foreign('id_checkout')->references('id_checkout')->on('tb_checkout')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_user')->unsigned();

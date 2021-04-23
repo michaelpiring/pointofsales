@@ -78,11 +78,16 @@ class CheckoutController extends Controller
                 if($data['kode_promo']=="-"){
                     //hitung total harga tanpa kode promo
 
-                    $jumlah_bayar = $total_harga;
+                    $jumlah_harga = $total_harga;
+                    $pajak = $jumlah_harga*0.05;
+
+                    $jumlah_bayar = $jumlah_harga+$pajak;
 
                     //create data checkout
                     $data['id_keranjang'] = $data_keranjang_user['id_keranjang'];
                     $data['tgl_checkout'] = now();
+                    $data['total_harga'] = $jumlah_harga;
+                    $data['pajak'] = $pajak;
                     $data['total_checkout'] = $jumlah_bayar;
                     $data['status'] = 'belum dibayar';
 
@@ -105,11 +110,17 @@ class CheckoutController extends Controller
 
                     //masukin kode promo, kode promonya benar
                     if($cek_promo){
-                        $jumlah_bayar = $total_harga-$cek_promo['besar_promo_diskon'];
+                        $jumlah_harga = $total_harga-$cek_promo['besar_promo_diskon'];
+
+                        $pajak = $jumlah_harga*0.05;
+
+                        $jumlah_bayar = $jumlah_harga+$pajak;
 
                         //create data checkout
                         $data['id_keranjang'] = $data_keranjang_user['id_keranjang'];
                         $data['tgl_checkout'] = now();
+                        $data['total_harga'] = $jumlah_harga;
+                        $data['pajak'] = $pajak;
                         $data['total_checkout'] = $jumlah_bayar;
                         $data['status'] = 'belum dibayar';
 

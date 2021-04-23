@@ -15,6 +15,8 @@ class CreateTbPenjualan extends Migration
     {
         Schema::create('tb_penjualan', function (Blueprint $table) {
             $table->increments('id_penjualan');
+            $table->integer('id_checkout')->unsigned();
+            $table->foreign('id_checkout')->references('id_checkout')->on('tb_checkout')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_toko')->unsigned();
             $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_user')->unsigned();
@@ -22,8 +24,10 @@ class CreateTbPenjualan extends Migration
             $table->integer('id_pegawai')->unsigned();
             $table->foreign('id_pegawai')->references('id_pegawai')->on('tb_pegawai')->onDelete('restrict')->onUpdate('cascade');            
             $table->dateTime('tgl_penjualan');
+            $table->integer('total_checkout');
             $table->integer('total_penjualan');
-            $table->enum('status', ['sudah dibayar','belum dibayar']);
+            $table->enum('metode_pembayaran',['cash','split','hutang']);
+            $table->enum('status', ['sudah dibayar','belum dibayar']);            
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

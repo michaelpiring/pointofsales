@@ -11,11 +11,14 @@ class Penjualan extends Model
     protected $table = 'tb_penjualan';
     protected $primaryKey = 'id_penjualan';
     protected $fillable = [
+        'id_checkout',
         'id_toko',
         'id_user',
         'id_pegawai',
         'tgl_penjualan',
+        'total_checkout',
         'total_penjualan',
+        'metode_pembayaran',
         'status'
     ];
     public $timestamps = true;

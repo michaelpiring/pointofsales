@@ -15,6 +15,8 @@ class Checkout extends Model
         'tgl_checkout',
         'kode_promo',
         'metode_pembayaran',
+        'total_harga',
+        'pajak',
         'total_checkout',
         'status'
     ];

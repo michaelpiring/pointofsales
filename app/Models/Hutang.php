@@ -11,6 +11,7 @@ class Hutang extends Model
     protected $table = 'tb_hutang';
     protected $primaryKey = 'id_hutang';
     protected $fillable = [
+        'id_penjualan',
         'id_checkout',
         'id_user',
         'tgl_hutang',

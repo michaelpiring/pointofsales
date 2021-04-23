@@ -84,6 +84,8 @@ class PenjualanController extends Controller
                     $data['id_user'] = $data_user['id'];
                     $data['tgl_penjualan'] = now();
                     $data['total_penjualan'] = $data_checkout['total_checkout'];
+                    $data['total_checkout'] = $data_checkout['total_checkout'];
+                    $data['metode_pembayaran'] = 'cash';
                     $data['status'] = 'sudah dibayar';
 
                     $create_penjualan = Penjualan::create($data);
@@ -111,6 +113,14 @@ class PenjualanController extends Controller
                             $update_stok = Produk::where('id_produk', $data_detail_keranjang['id_produk'])->update([
                                 'stok' => $kurangi_stok
                             ]);
+
+                            $data_detail_keranjang->delete();
+                            $keranjang = Keranjang::where('id_keranjang', $data_checkout['id_keranjang'])->first();
+                            $update_jumlah_produk = $keranjang['jumlah_produk']-$keranjang['jumlah_produk'];
+
+                            $update_keranjang = $keranjang->update([
+                                'jumlah_produk' => $update_jumlah_produk
+                            ]);
                         }
                         $update_status_checkout = Checkout::where('id_checkout', $data['id_checkout'])->update([
                             'status' => 'sudah dibayar'
@@ -136,7 +146,9 @@ class PenjualanController extends Controller
                     //create data penjualan & hutang
                     $data['id_user'] = $data_user['id'];
                     $data['tgl_penjualan'] = now();
+                    $data['total_checkout'] = $data_checkout['total_checkout'];
                     $data['total_penjualan'] = $data_checkout['total_checkout'];
+                    $data['metode_pembayaran'] = 'hutang';
                     $data['status'] = 'belum dibayar';
     
                     $create_penjualan = Penjualan::create($data);
@@ -144,6 +156,7 @@ class PenjualanController extends Controller
                     if($create_penjualan){
                         //create data hutang
                         $create_hutang = Hutang::create([
+                            'id_penjualan'  => $create_penjualan['id_penjualan'],
                             'id_checkout'   => $data['id_checkout'],
                             'id_user'       => $data_checkout['id_user'],
                             'tgl_hutang'    => now(),
@@ -198,8 +211,10 @@ class PenjualanController extends Controller
                     //ganti besar hutang di tb hutang
                     $data['id_user'] = $data_user['id'];
                     $data['tgl_penjualan'] = now();
+                    $data['total_checkout'] = $data_checkout['total_checkout'];
                     $data['total_penjualan'] = $data['jumlah_bayar'];
-                    $data['status'] = 'sudah dibayar'; //revisi status tb penjualan jadi->(lunas/hutang/split)
+                    $data['metode_pembayaran'] = 'split';
+                    $data['status'] = 'sudah dibayar';
     
                     $create_penjualan = Penjualan::create($data);
     
@@ -210,6 +225,7 @@ class PenjualanController extends Controller
                         $sisa_hutang = $data_checkout['total_checkout']-$data['jumlah_bayar'];
     
                         $create_hutang = Hutang::create([
+                            'id_penjualan'  => $create_penjualan['id_penjualan'],
                             'id_checkout'   => $data['id_checkout'],
                             'id_user'       => $data_checkout['id_user'],
                             'tgl_hutang'    => now(),

@@ -22,6 +22,8 @@ class CreateTbCheckout extends Migration
             $table->datetime('tgl_checkout');
             $table->string('kode_promo');
             $table->enum('metode_pembayaran',['cash','split','hutang']);
+            $table->integer('total_harga');
+            $table->integer('pajak');
             $table->integer('total_checkout');
             $table->enum('status',['sudah dibayar', 'belum dibayar']);
             $table->timestamps();
