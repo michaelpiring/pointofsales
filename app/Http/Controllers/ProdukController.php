@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use App\Models\Supplier;
+use App\Models\Kategori;
 use App\Models\Pegawai;
 
 use Illuminate\Http\Request;
@@ -25,11 +26,21 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $data = Produk::all();
+        $datas = Produk::all();
+
+        foreach($datas as $data){
+            $supplier = Supplier::where('id_supplier',$data['id_supplier'])->first();
+            $nama_supplier = $supplier['nama_supplier'];
+            $data['supplier'] = $nama_supplier;
+
+            $kategori = Kategori::where('id_kategori',$data['id_kategori'])->first();
+            $nama_kategori = $kategori['kategori'];
+            $data['kategori'] = $nama_kategori;
+        }
         return response()->json([
             'success' => true,
             'message' => 'Ini Index Produk',
-            'data'    => $data
+            'data'    => $datas
         ], 201);
     }
 
@@ -95,6 +106,13 @@ class ProdukController extends Controller
         if($produk){
             $lokasi_gambar = 'Supplier'.$produk['id_supplier'].'/'.$produk['foto_produk'];
             $produk['gambar_produk'] = $lokasi_gambar;
+            $supplier = Supplier::where('id_supplier',$produk['id_supplier'])->first();
+            $kategori = Kategori::where('id_kategori',$produk['id_kategori'])->first();
+            $nama_supplier = $supplier['nama_supplier'];
+            $nama_kategori = $kategori['kategori'];
+
+            $produk['supplier'] = $nama_supplier;
+            $produk['kategori'] = $nama_kategori;
             return response()->json([
                 'success' => true,
                 'message' => 'Detail Data Produk',
