@@ -73,13 +73,13 @@ class ProdukController extends Controller
         else{
             $supplier = Supplier::where('id_supplier', $data['id_supplier'])->first();
 
-            $lokasi_gambar = 'Supplier'.$data['id_supplier'];
+            $lokasi_gambar = 'public/'.'Supplier'.$data['id_supplier'];
 
             $foto_produk = $request->file('foto_produk');
 
             $simpan_gambar = Storage::put($lokasi_gambar, $foto_produk);
 
-            $nama_gambar = basename($simpan_gambar);
+            $nama_gambar = Storage::url('Supplier'.$data['id_supplier']."/".basename($simpan_gambar));
             $data['foto_produk'] = $nama_gambar;
 
             $data['status_produk'] = '1';
@@ -89,7 +89,7 @@ class ProdukController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Berhasil menambahkan Produk',
-                    'data'    => $create_produk,
+                    'data'    => $request,
                 ], 201);
             }
         }
