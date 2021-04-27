@@ -187,7 +187,7 @@ class ProdukController extends Controller
                         'harga_beli'         => $data['harga_beli'],
                         'berat_produk'       => $data['berat_produk'],
                         'deskripsi_produk'   => $data['deskripsi_produk'],
-                        'kode_barcode'       => $data['kode_barcode'],
+                    
                     ]);
                     if($result){
                         return response()->json([
