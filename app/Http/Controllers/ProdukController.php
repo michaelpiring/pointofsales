@@ -175,6 +175,15 @@ class ProdukController extends Controller
                 ], 409);
             }
             else{
+                $lokasi_gambar = 'public/'.'Supplier'.$data['id_supplier'];
+
+                $foto_produk = $request->file('foto_produk');
+
+                $simpan_gambar = Storage::put($lokasi_gambar, $foto_produk);
+
+                $nama_gambar = Storage::url('Supplier'.$data['id_supplier']."/".basename($simpan_gambar));
+                $data['foto_produk'] = $nama_gambar;
+
                 $data_pegawai = Pegawai::where('id_pegawai',$data['id_pegawai'])->first();
                 if(Hash::check($data['password_pegawai'],$data_pegawai['password_pegawai'])){
                     $result = $produk->update([
@@ -187,6 +196,7 @@ class ProdukController extends Controller
                         'harga_beli'         => $data['harga_beli'],
                         'berat_produk'       => $data['berat_produk'],
                         'deskripsi_produk'   => $data['deskripsi_produk'],
+                        'foto_produk'        => $data['foto_produk']
                     
                     ]);
                     if($result){
