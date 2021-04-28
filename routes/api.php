@@ -63,6 +63,9 @@ Route::post('stok-opname/{stok-opname}/storeStokOpname', [StokOpnameController::
 Route::put('stok-opname/{stok-opname}/approveStokOpname', [StokOpnameController::class,'approveStokOpname']);
 Route::put('stok-opname/{stok-opname}/unapproveStokOpname', [StokOpnameController::class,'unapproveStokOpname']);
 
+Route::apiResource('hutang', PembayaranHutangController::class);
+Route::get('/indexHutang_user/{id}',[PembayaranHutangController::class, 'indexHutangUser']);
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'

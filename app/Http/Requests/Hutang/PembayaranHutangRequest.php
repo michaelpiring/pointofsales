@@ -13,7 +13,7 @@ class PembayaranHutangRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class PembayaranHutangRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id_hutang' => 'required|numeric',
+            'id_user' => 'required|numeric',
+            'jumlah_bayar' => 'required|numeric'
         ];
     }
 }
