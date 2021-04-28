@@ -54,6 +54,7 @@ class SupplierController extends Controller
             ], 404);
         }
         else{
+            $data['status'] = 'aktif';
             $create_supplier = Supplier::create($data);
             if($create_supplier){
                 return response()->json([
