@@ -15,7 +15,7 @@ class PromoDiskonController extends Controller
      */
     public function index()
     {
-        $data = PromoDiskon::all();
+        $data = PromoDiskon::where('status','aktif')->get();
         return response()->json([
             'success' => true,
             'message' => 'Ini Index Promo Diskon',
@@ -132,6 +132,25 @@ class PromoDiskonController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Gagal Menonaktifkan Promo',
+                    'data' => $promo
+                ], 409);
+            }
+        }
+        elseif($promo['status'] != 'aktif'){
+            $non_aktif = $promo->update([
+                'status' => 'aktif'
+            ]);
+            if($non_aktif){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Berhasil Mengaktifkan Promo',
+                    'data'    => $promo
+                ], 200);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal Mengaktifkan Promo',
                     'data' => $promo
                 ], 409);
             }

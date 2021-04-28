@@ -26,7 +26,7 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $datas = Produk::all();
+        $datas = Produk::where('status_produk','aktif')->get();
 
         foreach($datas as $data){
             $supplier = Supplier::where('id_supplier',$data['id_supplier'])->first();
@@ -178,11 +178,14 @@ class ProdukController extends Controller
                 $lokasi_gambar = 'public/'.'Supplier'.$data['id_supplier'];
 
                 $foto_produk = $request->file('foto_produk');
+                if($foto_produk){  
+                    $simpan_gambar = Storage::put($lokasi_gambar, $foto_produk);
 
-                $simpan_gambar = Storage::put($lokasi_gambar, $foto_produk);
-
-                $nama_gambar = Storage::url('Supplier'.$data['id_supplier']."/".basename($simpan_gambar));
-                $data['foto_produk'] = $nama_gambar;
+                    $nama_gambar = Storage::url('Supplier'.$data['id_supplier']."/".basename($simpan_gambar));
+                    $data['foto_produk'] = $nama_gambar;
+                }else{
+                    $data['foto_produk'] = $produk->foto_produk;
+                }
 
                 $data_pegawai = Pegawai::where('id_pegawai',$data['id_pegawai'])->first();
                 if(Hash::check($data['password_pegawai'],$data_pegawai['password_pegawai'])){
@@ -233,7 +236,7 @@ class ProdukController extends Controller
     {
         if($produk['status_produk']!='0'){
             $produk->update([
-                'status_produk' => '0'
+                'status_produk' => 'non aktif'
             ]);
             return response()->json([
                 'success' => true,
