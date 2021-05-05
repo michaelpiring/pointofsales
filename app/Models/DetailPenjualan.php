@@ -12,6 +12,7 @@ class DetailPenjualan extends Model
     protected $primaryKey = 'id_detail_penjualan';
     protected $fillable = [
         'id_penjualan',
+        'id_checkout',
         'id_toko',
         'id_user',
         'id_pegawai',

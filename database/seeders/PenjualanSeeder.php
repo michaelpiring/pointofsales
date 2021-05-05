@@ -26,17 +26,21 @@ class PenjualanSeeder extends Seeder
 
         $id_pegawai = DB::table('tb_pegawai')->pluck('id_pegawai');
         $id_user = DB::table('users')->pluck('id');
+        $id_checkout = DB::table('tb_checkout')->pluck('id_checkout');
         
 
         for($i=1;$i<=200;$i++){
             $create_penjualan = Penjualan::create([
                 'id_penjualan' => $i,
+                'id_checkout' => $faker->randomElement($id_checkout),
                 'id_toko' => 1,
                 'id_user' => $faker->randomElement($id_user),
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'tgl_penjualan' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                'total_checkout' => $faker->numberBetween($min = 25000, $max = 200000),
                 'total_penjualan' => $faker->numberBetween($min = 25000, $max = 200000),
-                'status' => 'sudah dibayar',
+                'metode_pembayaran' => $faker->randomElement($array = array ('cash','split','hutang')),
+                'status' => $faker->randomElement($array = array ('sudah dibayar','belum dibayar')),
     		]);
             
             $id_produk = DB::table('tb_produk')->pluck('id_produk');
@@ -44,6 +48,7 @@ class PenjualanSeeder extends Seeder
             DetailPenjualan::create([
                 'id_detail_penjualan' => $i,
                 'id_penjualan' => $create_penjualan['id_penjualan'],
+                'id_checkout' => $faker->numberBetween($min = 1, $max = 20),
                 'id_toko' => $create_penjualan['id_toko'],
                 'id_user' => $create_penjualan['id_user'],
                 'id_pegawai' => $create_penjualan['id_pegawai'],

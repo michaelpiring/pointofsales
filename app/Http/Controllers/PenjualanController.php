@@ -97,6 +97,7 @@ class PenjualanController extends Controller
                         foreach($data_detail_keranjangs as $data_detail_keranjang){
                             DetailPenjualan::create([
                                 'id_penjualan'  => $create_penjualan['id_penjualan'],
+                                'id_checkout'   => $create_penjualan['id_checkout'],
                                 'id_toko'       => $create_penjualan['id_toko'],
                                 'id_user'       => $create_penjualan['id_user'],
                                 'id_pegawai'    => $create_penjualan['id_pegawai'],
@@ -170,6 +171,7 @@ class PenjualanController extends Controller
                         foreach($data_detail_keranjangs as $data_detail_keranjang){
                             DetailPenjualan::create([
                                 'id_penjualan'  => $create_penjualan['id_penjualan'],
+                                'id_checkout'   => $create_penjualan['id_checkout'],
                                 'id_toko'       => $create_penjualan['id_toko'],
                                 'id_user'       => $create_penjualan['id_user'],
                                 'id_pegawai'    => $create_penjualan['id_pegawai'],
@@ -239,6 +241,7 @@ class PenjualanController extends Controller
                         foreach($data_detail_keranjangs as $data_detail_keranjang){
                             DetailPenjualan::create([
                                 'id_penjualan'  => $create_penjualan['id_penjualan'],
+                                'id_checkout'   => $create_penjualan['id_checkout'],
                                 'id_toko'       => $create_penjualan['id_toko'],
                                 'id_user'       => $create_penjualan['id_user'],
                                 'id_pegawai'    => $create_penjualan['id_pegawai'],

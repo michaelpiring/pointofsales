@@ -26,7 +26,7 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $datas = Produk::where('status_produk','aktif')->get();
+        $datas = Produk::where('status_produk','1')->get();
 
         foreach($datas as $data){
             $supplier = Supplier::where('id_supplier',$data['id_supplier'])->first();
