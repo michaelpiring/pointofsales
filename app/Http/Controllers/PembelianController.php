@@ -54,14 +54,15 @@ class PembelianController extends Controller
         }
         else{
             $data['tgl_pembelian'] = now();
+            $data['status'] = 'pending';
             $create_pembelian = Pembelian::create($data);
             if($create_pembelian){
                 $data_produk = Produk::where('id_produk', $data['id_produk'])->first();
 
-                $data_produk['stok'] = $data_produk['stok']+$data['jumlah_barang'];
-                $update_stok = $data_produk->update([
-                    'stok' => $data_produk['stok']
-                ]);
+                //$data_produk['stok'] = $data_produk['stok']+$data['jumlah_barang'];
+                //$update_stok = $data_produk->update([
+                //    'stok' => $data_produk['stok']
+                //]);
 
                 $create_detail_pembelian = DetailPembelian::create([
                     'id_pembelian' => $create_pembelian['id_pembelian'],
@@ -80,6 +81,45 @@ class PembelianController extends Controller
                     'data'    => $create_pembelian 
                 ], 201);
             }
+        }
+    }
+
+    public function ValidasiPembelian(Pembelian $pembelian)
+    {
+        if($pembelian['status']!='success'){ 
+            //status pending
+            $data_produk = Produk::where('id_produk', $pembelian['id_produk'])->first();
+            $data_detail_pembelian = DetailPembelian::where('id_pembelian', $pembelian['id_pembelian'])->first();
+
+            $data_produk['stok'] = $data_produk['stok']+$data_detail_pembelian['jumlah_barang'];
+            $update_stok = $data_produk->update([
+                'stok' => $data_produk['stok']
+            ]);
+            if($update_stok){
+                $pembelian->update([
+                    'status'=>'success'
+                ]);
+
+                $pembelian['stok masuk'] = $data_detail_pembelian['jumlah_barang'];
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Berhasil validasi Pembelian, Stok ditambahkan',
+                    'data'    => $pembelian
+                ], 200);
+            }            
+        }
+        if($pembelian['status']!='pending'){ //status success
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Pembelian telah divalidasi!',
+                'data'    => $pembelian
+            ], 409);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal validasi Data Pembelian',
+            ], 409);
         }
     }
 

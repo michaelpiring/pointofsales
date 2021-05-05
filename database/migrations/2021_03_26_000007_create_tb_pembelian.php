@@ -24,6 +24,7 @@ class CreateTbPembelian extends Migration
             $table->integer('id_supplier')->unsigned();
             $table->foreign('id_supplier')->references('id_supplier')->on('tb_supplier')->onDelete('restrict')->onUpdate('cascade');
             $table->dateTime('tgl_pembelian');
+            $table->enum('status',['success','pending']);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

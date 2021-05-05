@@ -15,7 +15,8 @@ class Pembelian extends Model
         'id_pegawai',
         'id_produk',
         'id_supplier',
-        'tgl_pembelian'
+        'tgl_pembelian',
+        'status'
     ];
     public $timestamps = true;
 }

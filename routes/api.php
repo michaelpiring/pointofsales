@@ -41,6 +41,7 @@ Route::put('pegawai/{pegawai}/aktivasi_pegawai', [PegawaiController::class,'akti
 Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
 
 Route::apiResource('pembelian', PembelianController::class);
+Route::put('pembelian/{pembelian}/ValidasiPembelian', [PembelianController::class,'ValidasiPembelian']);
 
 Route::apiResource('keranjang', KeranjangController::class);
 
