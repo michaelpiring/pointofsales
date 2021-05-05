@@ -17,7 +17,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        $faker = Faker::create();
+        DB::table('users')->insert([ 
             'id' => 1,
             'name' => 'User',
             'email' => 'user@gmail.com',
@@ -27,7 +28,8 @@ class UserSeeder extends Seeder
             'jenis_kelamin_user' => 'laki laki',
             'total_poin_user' => 0,
             'saldo_hutang' => 0,
-            'status' => 'aktif'
+            'status' => 'aktif',
+            'created_at' => $faker->date($format = 'Y-m-d', $max = 'now')
         ]);
 
         DB::table('tb_keranjang')->insert([
@@ -36,7 +38,7 @@ class UserSeeder extends Seeder
             'jumlah_produk' => 0,
         ]);
 
-        $faker = Faker::create();
+        
 
         $id_jabatan = DB::table('tb_jabatan')->pluck('id_jabatan');
         $id_divisi = DB::table('tb_divisi')->pluck('id_divisi');
@@ -53,6 +55,7 @@ class UserSeeder extends Seeder
                 'total_poin_user' => 0,
                 'saldo_hutang' => 0,
                 'status' => 'aktif',
+                'created_at' => $faker->date($format = 'Y-m-d', $max = 'now')
     		]);
             DB::table('tb_keranjang')->insert([
                 'id_keranjang' => $i,
@@ -73,6 +76,7 @@ class UserSeeder extends Seeder
                 'total_poin_user' => 0,
                 'saldo_hutang' => 0,
                 'status' => 'aktif',
+                'created_at' => $faker->date($format = 'Y-m-d', $max = 'now')
     		]);
             DB::table('tb_keranjang')->insert([
                 'id_keranjang' => $i,
