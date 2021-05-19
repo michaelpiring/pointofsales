@@ -28,8 +28,8 @@ class CreatePegawaiRequest extends FormRequest
             'id_jabatan' => 'required|numeric',
             'id_divisi' => 'required|numeric',
             'nama_pegawai' => 'required',
-            'email_pegawai' => 'required|unique:tb_pegawai',
-            'password_pegawai' => 'required',
+            'email' => 'required|unique:tb_pegawai',
+            'password' => 'required',
             'nik_pegawai' => 'required|unique:tb_pegawai',
             'alamat_pegawai' => 'required',
             'tgl_lahir_pegawai' => 'required|date'

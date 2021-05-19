@@ -47,9 +47,15 @@ return [
             'hash' => false,
         ],
 
+        'user' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+
         'pegawai' => [
             'driver' => 'jwt',
-            'provider' => 'pegawai',
+            'provider' => 'pegawais',
             'hash' => false,
         ],
     ],
@@ -77,7 +83,7 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'pegawai' => [
+        'pegawais' => [
             'driver' => 'eloquent',
             'model' => App\Models\Pegawai::class,
         ],
@@ -106,6 +112,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'pegawais' => [
+            'provider' => 'pegawais',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

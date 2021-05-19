@@ -22,9 +22,9 @@ class CreateTbPegawai extends Migration
             $table->integer('id_divisi')->unsigned();
             $table->foreign('id_divisi')->references('id_divisi')->on('tb_divisi')->onDelete('restrict')->onUpdate('cascade');
             $table->string('nama_pegawai');
-            $table->string('email_pegawai')->unique();
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password_pegawai');
+            $table->string('password');
             $table->string('nik_pegawai', 15)->unique();
             $table->string('alamat_pegawai', 100);
             $table->date('tgl_lahir_pegawai');

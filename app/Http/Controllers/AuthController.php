@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Pegawai;
+use App\Models\Keranjang;
 use Illuminate\Support\Facades\Hash;
+
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\Pegawai\CreatePegawaiRequest;
 
 use Validator;
 
@@ -19,8 +23,7 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['loginUser', 'registerUser']]);
-        $this->middleware('auth:pegawai', ['except' => ['loginPegawai', 'registerPegawai']]);
+        $this->middleware('auth:user,pegawai', ['except' => ['login', 'registerUser', 'registerPegawai']]);
     }
 
     /**
@@ -28,26 +31,17 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function loginUser(Request $request){
-    	$validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-        ]);
+    public function login(Request $request){
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        if ($token = Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return $this->createNewToken($token);   
         }
 
-        $user = User::where('email', $request->email)->first();
-        if (!Hash::check($request->password, $user->password, [])){
-            throw new \Exception('Data login salah!');
+        elseif ($token = Auth::guard('pegawai')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return $this->createNewToken($token);   
         }
 
-        if (! $token = auth('api')->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        return $this->createNewToken($token);
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**
@@ -55,26 +49,50 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function registerUser(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
-        ]);
+    public function registerUser(CreateUserRequest $request) {
 
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+        $data = $request->validated();
+        if($data){
+            $data['password'] = bcrypt($data['password']);
+            $data['total_poin_user'] = 0;
+            $data['saldo_hutang'] = 0;
+            $create_user = User::create($data);
+            if($create_user){
+                $create_keranjang = Keranjang::create([
+                    'id_user' => $create_user['id'],
+                    'jumlah_produk' => 0
+                ]);
+                if($create_keranjang){
+                   return response()->json([
+                   'success' => true,
+                   'message' => 'Berhasil Registrasi user',
+                   'data'    => $create_user
+                ], 201);
+                }
+            }
         }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Dalam Registrasi User, Data tidak Valid!',
+            ], 404);   
+        }
+    }
 
-        $user = User::create(array_merge(
-                    $validator->validated(),
-                    ['password' => bcrypt($request->password)]
-                ));
+    public function registerPegawai(CreatePegawaiRequest $request) {
 
-        return response()->json([
-            'message' => 'User successfully registered',
-            'user' => $user
-        ], 201);
+        $data = $request->validated();
+        if($data){
+            $data['password'] = bcrypt($data['password']);
+            $data['status'] = 'aktif';
+            $create_pegawai = Pegawai::create($data);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Dalam Registrasi Pegawai, Data tidak Valid!',
+            ], 404);   
+        }
     }
 
 
@@ -83,7 +101,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logoutUser() {
+    public function logout() {
         auth()->logout();
 
         return response()->json(['message' => 'User successfully signed out']);
@@ -94,7 +112,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refreshUser() {
+    public function refresh() {
         return $this->createNewToken(auth()->refresh());
     }
 
@@ -103,7 +121,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function profileUser() {
+    public function profile() {
         return response()->json(auth()->user());
     }
 
@@ -122,97 +140,4 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
-
-    /**
-     * Login Pegawai
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function loginPegawai(Request $request){
-    	$validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        $pegawai = Pegawai::where('email_pegawai', $request->email)->first();
-        if (!Hash::check($request->password, $pegawai->password_pegawai, [])){
-            return response()->json([
-                'success' => false,
-                'message' => 'Password salah!'
-            ], 400);
-        }
-
-        if (! $token = auth('pegawai')->attempt($validator->validated())) {
-            return response()->json([
-                'error' => 'Unauthorized',
-                'data'  => $validator
-            ], 401);
-        }
-
-        return $this->createNewToken($token);
-    }
-
-    /**
-     * Register Pegawai.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function registerPegawai(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'nama_pegawai' => 'required|string|between:2,100',
-            'email_pegawai' => 'required|string|email|max:100|unique:tb_pegawai',
-            'password_pegawai' => 'required|string|confirmed|min:6',
-        ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-
-        $pegawai = Pegawai::create(array_merge(
-                    $validator->validated(),
-                    ['password_pegawai' => bcrypt($request->password_pegawai)]
-                ));
-
-        return response()->json([
-            'message' => 'Pegawai successfully registered',
-            'pegawai' => $pegawai
-        ], 201);
-    }
-
-    /**
-     * Log out Pegawai (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function logoutPegawai() {
-        auth()->logout();
-
-        return response()->json(['message' => 'Pegawai successfully signed out']);
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refreshPegawai() {
-        return $this->createNewToken(auth()->refresh());
-    }
-
-    /**
-     * Get the authenticated Pegawai.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function profilePegawai() {
-        return response()->json(auth()->user());
-    }
-
-    
-
 }

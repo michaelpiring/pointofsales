@@ -7,15 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-
-
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Pegawai extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
     protected $table = 'tb_pegawai';
-    protected $guard = 'pegawai';
     protected $primaryKey = 'id_pegawai';
 
     /**
@@ -28,8 +25,8 @@ class Pegawai extends Authenticatable implements JWTSubject
         'id_jabatan',
         'id_divisi',
         'nama_pegawai',
-        'email_pegawai',
-        'password_pegawai',
+        'email',
+        'password',
         'nik_pegawai',
         'alamat_pegawai',
         'tgl_lahir_pegawai',
@@ -42,7 +39,7 @@ class Pegawai extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password_pegawai',
+        'password',
         'remember_token',
     ];
 

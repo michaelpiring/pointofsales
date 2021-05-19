@@ -17,40 +17,49 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::apiResource('toko', TokoController::class);
-Route::put('toko/{toko}/aktivasi_toko', [TokoController::class,'aktivasiToko']);
+//route user
 
-Route::apiResource('supplier', SupplierController::class);
-Route::put('supplier/{supplier}/aktivasi_supplier', [SupplierController::class,'aktivasiSupplier']);
+Route::group([
+    'middleware' => 'auth:user'
 
-Route::apiResource('promo-diskon', PromoDiskonController::class);
+], function ($router) {
 
-Route::apiResource('kategori', KategoriController::class);
-Route::put('kategori/{kategori}/aktivasi_kategori', [KategoriController::class,'aktivasiKategori']);
+    Route::apiResource('keranjang', KeranjangController::class);
+    Route::apiResource('checkout', CheckoutController::class);
+});
 
-Route::apiResource('produk', ProdukController::class);
-Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
-Route::post('/produk/showByBarcode', [ProdukController::class,'showByBarcode']);
+//route pegawai
 
-Route::apiResource('user', UserController::class);
-Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);
-Route::post('/user/getUser', [UserController::class,'showUser']);
+Route::group([
+    'middleware' => 'auth:pegawai'
 
-Route::apiResource('pegawai', PegawaiController::class);
-Route::put('pegawai/{pegawai}/aktivasi_pegawai', [PegawaiController::class,'aktivasiPegawai']);
-Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
+], function ($router) {
 
-Route::apiResource('pembelian', PembelianController::class);
-Route::put('pembelian/{pembelian}/ValidasiPembelian', [PembelianController::class,'ValidasiPembelian']);
+    Route::apiResource('toko', TokoController::class);
+    Route::put('toko/{toko}/aktivasi_toko', [TokoController::class,'aktivasiToko']);
+    Route::apiResource('supplier', SupplierController::class);
+    Route::put('supplier/{supplier}/aktivasi_supplier', [SupplierController::class,'aktivasiSupplier']);
+    Route::apiResource('promo-diskon', PromoDiskonController::class);
+    Route::apiResource('kategori', KategoriController::class);
+    Route::put('kategori/{kategori}/aktivasi_kategori', [KategoriController::class,'aktivasiKategori']);
+    Route::apiResource('produk', ProdukController::class);
+    Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
+    Route::post('/produk/showByBarcode', [ProdukController::class,'showByBarcode']);
+    Route::apiResource('user', UserController::class);
+    Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);
+    Route::post('/user/getUser', [UserController::class,'showUser']);
+    Route::apiResource('pegawai', PegawaiController::class);
+    Route::put('pegawai/{pegawai}/aktivasi_pegawai', [PegawaiController::class,'aktivasiPegawai']);
+    Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
+    Route::apiResource('pembelian', PembelianController::class);
+    Route::put('pembelian/{pembelian}/ValidasiPembelian', [PembelianController::class,'ValidasiPembelian']);
+    Route::apiResource('penjualan', PenjualanController::class);
+    Route::apiResource('retur', ReturController::class);
+    Route::put('retur/{retur}/validasiRetur', [ReturController::class,'validasiRetur']);
 
-Route::apiResource('keranjang', KeranjangController::class);
-
-Route::apiResource('checkout', CheckoutController::class);
-
-Route::apiResource('penjualan', PenjualanController::class);
-
-Route::apiResource('retur', ReturController::class);
-Route::put('retur/{retur}/validasiRetur', [ReturController::class,'validasiRetur']);
+    Route::apiResource('hutang', PembayaranHutangController::class);
+    Route::get('/indexHutang_user/{id}',[PembayaranHutangController::class, 'indexHutangUser']);
+});
 
 Route::apiResource('report', ReportController::class);
 Route::post('/report/purchase', [ReportController::class, 'purchaseChart']);
@@ -64,19 +73,18 @@ Route::post('stok-opname/{stok-opname}/storeStokOpname', [StokOpnameController::
 Route::put('stok-opname/{stok-opname}/approveStokOpname', [StokOpnameController::class,'approveStokOpname']);
 Route::put('stok-opname/{stok-opname}/unapproveStokOpname', [StokOpnameController::class,'unapproveStokOpname']);
 
-Route::apiResource('hutang', PembayaranHutangController::class);
-Route::get('/indexHutang_user/{id}',[PembayaranHutangController::class, 'indexHutangUser']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register_user', [AuthController::class, 'registerUser']);
+Route::post('/register_pegawai', [AuthController::class, 'registerPegawai']);
 
 Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
+    'middleware' => 'auth:pegawai,user'
 
 ], function ($router) {
-    Route::post('/login_user', [AuthController::class, 'loginUser']);
-    Route::post('/register_user', [AuthController::class, 'registerUser']);
-    Route::post('/logout_user', [AuthController::class, 'logoutUser']);
-    Route::post('/refresh_user', [AuthController::class, 'refreshUser']);
-    Route::get('/profile_user', [AuthController::class, 'profileUser']);    
+    
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/profile', [AuthController::class, 'profile']);    
 });
 
 /*

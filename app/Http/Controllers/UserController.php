@@ -56,17 +56,17 @@ class UserController extends Controller
             $data['password'] = bcrypt($data['password']);
             $data['total_poin_user'] = 0;
             $data['saldo_hutang'] = 0;
-            $create_nasabah = User::create($data);
-            if($create_nasabah){
+            $create_user = User::create($data);
+            if($create_user){
                 $create_keranjang = Keranjang::create([
-                    'id_user' => $create_nasabah['id'],
+                    'id_user' => $create_user['id'],
                     'jumlah_produk' => 0
                 ]);
                 if($create_keranjang){
                    return response()->json([
                    'success' => true,
                    'message' => 'Berhasil Registrasi user',
-                   'data'    => $create_nasabah
+                   'data'    => $create_user
                 ], 201);
                 }
             }
