@@ -48,7 +48,7 @@ class PenjualanSeeder extends Seeder
             DetailPenjualan::create([
                 'id_detail_penjualan' => $i,
                 'id_penjualan' => $create_penjualan['id_penjualan'],
-                'id_checkout' => $faker->numberBetween($min = 1, $max = 20),
+                'id_checkout' => $create_penjualan['id_checkout'],
                 'id_toko' => $create_penjualan['id_toko'],
                 'id_user' => $create_penjualan['id_user'],
                 'id_pegawai' => $create_penjualan['id_pegawai'],

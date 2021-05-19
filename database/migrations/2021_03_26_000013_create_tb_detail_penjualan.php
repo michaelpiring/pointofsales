@@ -17,6 +17,8 @@ class CreateTbDetailPenjualan extends Migration
             $table->increments('id_detail_penjualan');
             $table->integer('id_penjualan')->unsigned();
             $table->foreign('id_penjualan')->references('id_penjualan')->on('tb_penjualan')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('id_checkout')->unsigned();
+            $table->foreign('id_checkout')->references('id_checkout')->on('tb_checkout')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_toko')->unsigned();
             $table->foreign('id_toko')->references('id_toko')->on('tb_toko')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('id_user')->unsigned();

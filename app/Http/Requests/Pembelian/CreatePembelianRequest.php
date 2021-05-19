@@ -28,7 +28,8 @@ class CreatePembelianRequest extends FormRequest
             'id_pegawai' => 'required|numeric',
             'id_produk' => 'required|numeric',
             'id_supplier' => 'required|numeric',
-            'jumlah_barang' => 'required|numeric'        
+            'jumlah_barang' => 'required|numeric',
+            'harga_beli' => 'required|numeric',        
         ];
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
-use App\Models\DetailPembelian;
 use App\Models\Produk;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Requests\Pembelian\CreatePembelianRequest;
 
@@ -19,11 +19,19 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        $data = Pembelian::all();
+        $datas = Pembelian::all();
+
+        foreach($datas as $data){
+            $data_produk_show = Produk::where('id_produk', $data['id_produk'])->first();
+            $data_supplier = Supplier::where('id_supplier', $data['id_supplier'])->first();
+
+            $data['nama_produk'] = $data_produk_show['nama_produk'];
+            $data['nama_supplier'] = $data_supplier['nama_supplier'];
+        }
         return response()->json([
             'success' => true,
             'message' => 'Ini Index Pembelian',
-            'data'    => $data
+            'data'    => $datas
         ], 201);
     }
 
@@ -54,27 +62,10 @@ class PembelianController extends Controller
         }
         else{
             $data['tgl_pembelian'] = now();
+            $data['total_pembelian'] = $data['jumlah_barang']*$data['harga_beli'];
             $data['status'] = 'pending';
             $create_pembelian = Pembelian::create($data);
             if($create_pembelian){
-                $data_produk = Produk::where('id_produk', $data['id_produk'])->first();
-
-                //$data_produk['stok'] = $data_produk['stok']+$data['jumlah_barang'];
-                //$update_stok = $data_produk->update([
-                //    'stok' => $data_produk['stok']
-                //]);
-
-                $create_detail_pembelian = DetailPembelian::create([
-                    'id_pembelian' => $create_pembelian['id_pembelian'],
-                    'tgl_pembelian' => now(),
-                    'jumlah_barang' => $data['jumlah_barang'],
-                    'total_pembelian' => $data['jumlah_barang'] * $data_produk['harga_produk'],
-                    'id_toko' => $data['id_toko'],
-                    'id_pegawai' => $data['id_pegawai'],
-                    'id_produk' => $data['id_produk'],
-                    'id_supplier' => $data['id_supplier']
-                ]);
-
                 return response()->json([
                     'success' => true,
                     'message' => 'Berhasil Menambahkan data Pembelian',
@@ -89,18 +80,19 @@ class PembelianController extends Controller
         if($pembelian['status']!='success'){ 
             //status pending
             $data_produk = Produk::where('id_produk', $pembelian['id_produk'])->first();
-            $data_detail_pembelian = DetailPembelian::where('id_pembelian', $pembelian['id_pembelian'])->first();
+            $data_pembelian = Pembelian::where('id_pembelian', $pembelian['id_pembelian'])->first();
 
-            $data_produk['stok'] = $data_produk['stok']+$data_detail_pembelian['jumlah_barang'];
-            $update_stok = $data_produk->update([
-                'stok' => $data_produk['stok']
+            $data_produk['stok'] = $data_produk['stok']+$data_pembelian['jumlah_barang'];
+            $update_produk = $data_produk->update([
+                'stok' => $data_produk['stok'],
+                'harga_produk' => $data_pembelian['harga_beli']
             ]);
-            if($update_stok){
+            if($update_produk){
                 $pembelian->update([
                     'status'=>'success'
                 ]);
 
-                $pembelian['stok masuk'] = $data_detail_pembelian['jumlah_barang'];
+                $pembelian['stok masuk'] = $data_pembelian['jumlah_barang'];
                 return response()->json([
                     'success' => true,
                     'message' => 'Berhasil validasi Pembelian, Stok ditambahkan',
@@ -132,7 +124,13 @@ class PembelianController extends Controller
     public function show($id)
     {
         if($id){
-            $data = DetailPembelian::where('id_pembelian', $id)->get();
+            $data = Pembelian::where('id_pembelian', $id)->first();
+            $data_produk_show = Produk::where('id_produk', $data['id_produk'])->first();
+            $data_supplier = Supplier::where('id_supplier', $data['id_supplier'])->first();
+
+            $data['nama_produk'] = $data_produk_show['nama_produk'];
+            $data['nama_supplier'] = $data_supplier['nama_supplier'];
+
             return response()->json([
                 'success' => true,
                 'message' => 'Detail Data Pembelian',

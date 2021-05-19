@@ -24,6 +24,9 @@ class CreateTbPembelian extends Migration
             $table->integer('id_supplier')->unsigned();
             $table->foreign('id_supplier')->references('id_supplier')->on('tb_supplier')->onDelete('restrict')->onUpdate('cascade');
             $table->dateTime('tgl_pembelian');
+            $table->integer('jumlah_barang');
+            $table->integer('total_pembelian');
+            $table->integer('harga_beli');
             $table->enum('status',['success','pending']);
             $table->timestamps();
         });

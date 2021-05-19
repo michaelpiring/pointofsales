@@ -16,6 +16,9 @@ class Pembelian extends Model
         'id_produk',
         'id_supplier',
         'tgl_pembelian',
+        'jumlah_barang',
+        'total_pembelian',
+        'harga_beli',
         'status'
     ];
     public $timestamps = true;
