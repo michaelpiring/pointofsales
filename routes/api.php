@@ -59,6 +59,8 @@ Route::group([
 
     Route::apiResource('hutang', PembayaranHutangController::class);
     Route::get('/indexHutang_user/{id}',[PembayaranHutangController::class, 'indexHutangUser']);
+
+    Route::apiResource('promo-produk', PromoProdukController::class);
 });
 
 Route::apiResource('report', ReportController::class);

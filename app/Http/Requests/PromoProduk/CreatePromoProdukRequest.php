@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PromoDiskon;
+namespace App\Http\Requests\PromoProduk;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePromoDiskonRequest extends FormRequest
+class CreatePromoProdukRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class CreatePromoDiskonRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_toko' => 'required|numeric',
-            'kode_promo' => 'required|unique:tb_promo_diskon,kode_promo|unique:tb_promo_produk,kode_promo',
+            'id_produk' => 'required|numeric',
+            'kode_promo' => 'required|unique:tb_promo_produk,kode_promo|unique:tb_promo_diskon,kode_promo',
             'besar_promo_diskon' => 'required|numeric',
             'tgl_mulai_diskon' => 'required|date',
             'tgl_berakhir_diskon' => 'required|date',

@@ -6,6 +6,7 @@ use App\Models\Checkout;
 use App\Models\Keranjang;
 use App\Models\DetailKeranjang;
 use App\Models\PromoDiskon;
+use App\Models\PromoProduk;
 use App\Http\Requests\Checkout\CreateCheckoutRequest;
 use Illuminate\Http\Request;
 
@@ -107,6 +108,7 @@ class CheckoutController extends Controller
 
                     //cek promo ada ato nggak
                     $cek_promo = PromoDiskon::where('kode_promo', $data['kode_promo'])->first();
+                    $cek_promo_produk = PromoProduk::where('kode_promo', $data['kode_promo'])->first();
 
                     //masukin kode promo, kode promonya benar
                     if($cek_promo){
@@ -119,12 +121,49 @@ class CheckoutController extends Controller
                         //create data checkout
                         $data['id_keranjang'] = $data_keranjang_user['id_keranjang'];
                         $data['tgl_checkout'] = now();
-                        $data['total_harga'] = $jumlah_harga;
+                        $data['total_harga'] = $total_harga;
                         $data['pajak'] = $pajak;
                         $data['total_checkout'] = $jumlah_bayar;
                         $data['status'] = 'belum dibayar';
 
                         $create_checkout = Checkout::create($data);
+
+                        $create_checkout['besar_diskon'] = $cek_promo['besar_promo_diskon'];
+                        //buat cek kode promo, kalo data promo ada, kurangi total checkout dgn promo
+
+                        return response()->json([
+                            'success' => true,
+                            'promo' => true,
+                            'message' => 'Berhasil buat Pesanan!',
+                            'data'    => $create_checkout
+                        ], 200);
+                    }
+                    elseif($cek_promo_produk){
+
+                        //jumlah produk yg kena promo produk
+                        $produk_kena_diskon = DetailKeranjang::where('id_keranjang', $data_keranjang_user['id_keranjang'])
+                            ->where('id_produk',$cek_promo_produk['id_produk'])->first();
+
+                        //hitung jumlah promo
+                        $besar_promo_produk = $cek_promo_produk['besar_promo_diskon']*$produk_kena_diskon['jumlah_produk'];
+
+                        $jumlah_harga = $total_harga-$besar_promo_produk;
+
+                        $pajak = $jumlah_harga*0.05;
+
+                        $jumlah_bayar = $jumlah_harga+$pajak;
+
+                        //create data checkout
+                        $data['id_keranjang'] = $data_keranjang_user['id_keranjang'];
+                        $data['tgl_checkout'] = now();
+                        $data['total_harga'] = $total_harga;
+                        $data['pajak'] = $pajak;
+                        $data['total_checkout'] = $jumlah_bayar;
+                        $data['status'] = 'belum dibayar';
+
+                        $create_checkout = Checkout::create($data);
+
+                        $create_checkout['besar_diskon'] = $besar_promo_produk;
                         //buat cek kode promo, kalo data promo ada, kurangi total checkout dgn promo
 
                         return response()->json([
