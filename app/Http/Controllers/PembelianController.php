@@ -35,6 +35,24 @@ class PembelianController extends Controller
         ], 201);
     }
 
+    public function indexPembelianValidated()
+    {
+        $pembelians = Pembelian::where('status','pending')->get();
+
+        foreach($pembelians as $pembelian){
+            $data_produk_show = Produk::where('id_produk', $pembelian['id_produk'])->first();
+            $data_supplier = Supplier::where('id_supplier', $pembelian['id_supplier'])->first();
+
+            $pembelian['nama_produk'] = $data_produk_show['nama_produk'];
+            $pembelian['nama_supplier'] = $data_supplier['nama_supplier'];
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Ini Index Pembelian',
+            'data'    => $pembelians
+        ], 201);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

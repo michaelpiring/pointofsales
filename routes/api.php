@@ -53,6 +53,7 @@ Route::group([
     Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
     Route::apiResource('pembelian', PembelianController::class);
     Route::put('pembelian/{pembelian}/ValidasiPembelian', [PembelianController::class,'ValidasiPembelian']);
+    Route::get('/getPembelianValidated', [PembelianController::class,'indexPembelianValidated']);
     Route::apiResource('penjualan', PenjualanController::class);
     Route::apiResource('retur', ReturController::class);
     Route::put('retur/{retur}/validasiRetur', [ReturController::class,'validasiRetur']);
