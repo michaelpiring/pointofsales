@@ -236,7 +236,7 @@ class ProdukController extends Controller
     {
         if($produk['status_produk']!='0'){
             $produk->update([
-                'status_produk' => 'non aktif'
+                'status_produk' => '0'
             ]);
             return response()->json([
                 'success' => true,
