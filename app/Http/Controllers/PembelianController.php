@@ -20,6 +20,9 @@ class PembelianController extends Controller
     public function index()
     {
         $datas = Pembelian::where('status', '!=','pending')->get();
+        $pembelian = Pembelian::all();
+
+        $datas = $pembelian->sortBy('tgl_pembelian');
 
         foreach($datas as $data){
             $data_produk_show = Produk::where('id_produk', $data['id_produk'])->first();
@@ -39,17 +42,19 @@ class PembelianController extends Controller
     {
         $pembelians = Pembelian::where('status','pending')->get();
 
-        foreach($pembelians as $pembelian){
-            $data_produk_show = Produk::where('id_produk', $pembelian['id_produk'])->first();
-            $data_supplier = Supplier::where('id_supplier', $pembelian['id_supplier'])->first();
+        $datas = $pembelians->sortBy('tgl_pembelian');
 
-            $pembelian['nama_produk'] = $data_produk_show['nama_produk'];
-            $pembelian['nama_supplier'] = $data_supplier['nama_supplier'];
+        foreach($datas as $data){
+            $data_produk_show = Produk::where('id_produk', $data['id_produk'])->first();
+            $data_supplier = Supplier::where('id_supplier', $data['id_supplier'])->first();
+
+            $data['nama_produk'] = $data_produk_show['nama_produk'];
+            $data['nama_supplier'] = $data_supplier['nama_supplier'];
         }
         return response()->json([
             'success' => true,
             'message' => 'Ini Index Pembelian',
-            'data'    => $pembelians
+            'data'    => $datas
         ], 201);
     }
 
