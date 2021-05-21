@@ -46,27 +46,39 @@ class ReportController extends Controller
         ]);
         if($validate){
             if($validate['chart_type'] == 'daily'){
-                $data = Pembelian::where('id_toko',$request->id_toko)->orderBy('tgl_pembelian', 'desc')->take(7)->get();
-                return response()->json([
-                    'success' => true,
-                    'data' => $data
-                ],201);
+                $data = Pembelian::select('total_pembelian','tgl_pembelian')->where('id_toko',$request->id_toko)->orderBy('tgl_pembelian', 'desc')->get()->groupBy( function($data) {
+                    return Carbon::parse($data->tgl_pembelian)->format('Y-m-d');
+                    })->map(function ($data){
+                        return $data->sum('total_pembelian');
+                    })->take(8);
             }elseif($validate['chart_type'] == 'weekly'){
-                $data = Pembelian::where('id_toko',$request->id_toko)->orderBy(function($date) {
-                                            return Carbon::parse($date->tgl_pembelian)->format('W');
-                                            })->take(7)->get();
-                return response()->json([
-                    'success' => true,
-                    'data' => $data
-                ],201);
+                $data = Penjualan::select('total_pembelian','tgl_pembelian')->where('id_toko',$request->id_toko)->orderBy('tgl_pembelian', 'desc')->get()->groupBy( function($data) {
+                    return Carbon::parse($data->tgl_penjualan)->format('W');
+                    })->map(function ($data){
+                        return $data->sum('total_pembelian');
+                    })->take(8);
 
             }elseif($validate['chart_type'] == 'monthly'){
-                $data = Pembelian::orderBy(function($date) {
-                                            return Carbon::parse($date->tgl_pembelian)->format('M');
-                                            })->take(7)->get();
+                $data= Penjualan::select('total_penjualan','tgl_penjualan')->where('id_toko',$request->id_toko)->orderBy('tgl_penjualan', 'desc')->get()->groupBy(function($date) {
+                    return Carbon::parse($date->tgl_penjualan)->format('Y-m');
+                    })->map(function ($data){
+                        return $data->sum('total_penjualan');
+                    })->take(8);;
+            }
+            if($data){  
+                $purchase = [];
+                $date = [];
+                $result = [];
+                foreach($data as $key=>$val){
+                    $date[] = $key;
+                    $sales[] = $val;
+                }
+
+                $result['detail'] = $purchase;
+                $result['date'] = $date;
                 return response()->json([
-                'success' => true,
-                'data' => $data
+                    'success' => true,
+                    'data' => $result,
                 ],201);
             }
         }
