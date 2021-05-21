@@ -27,7 +27,7 @@ class CreateTbPembelian extends Migration
             $table->integer('jumlah_barang');
             $table->integer('total_pembelian');
             $table->integer('harga_beli');
-            $table->enum('status',['success','pending']);
+            $table->enum('status',['success','pending','gagal']);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

@@ -19,8 +19,8 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        $datas = Pembelian::where('status', '!=','pending')->get();
-        $pembelian = Pembelian::all();
+        #$datas = Pembelian::where('status', '!=','pending')->get();
+        $pembelian = Pembelian::where('status', '!=','pending')->get();
 
         $datas = $pembelian->sortBy('tgl_pembelian');
 
@@ -100,7 +100,7 @@ class PembelianController extends Controller
 
     public function ValidasiPembelian(Pembelian $pembelian)
     {
-        if($pembelian['status']!='success'){ 
+        if($pembelian['status']=='pending'){ 
             //status pending
             $data_produk = Produk::where('id_produk', $pembelian['id_produk'])->first();
             $data_pembelian = Pembelian::where('id_pembelian', $pembelian['id_pembelian'])->first();
@@ -123,7 +123,7 @@ class PembelianController extends Controller
                 ], 200);
             }            
         }
-        if($pembelian['status']!='pending'){ //status success
+        if($pembelian['status']=='success'){ //status success
             return response()->json([
                 'success' => true,
                 'message' => 'Data Pembelian telah divalidasi!',
@@ -199,6 +199,26 @@ class PembelianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pembelian = Pembelian::where('id_pembelian',$id)->first();
+        if($pembelian['status'] == 'berhasil'){
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengubah status, data pembelian telah berhasil!',
+            ], 409);
+        }
+        elseif($pembelian['status'] == 'pending'){
+            $pembelian->update([
+                'status' => 'gagal'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil mengubah status pembelian menjadi Gagal',
+                'data'    => $pembelian
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal mengubah status pembelian menjadi gagal',
+        ], 409);
     }
 }
