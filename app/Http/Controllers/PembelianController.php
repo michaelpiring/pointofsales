@@ -19,7 +19,7 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        $datas = Pembelian::all();
+        $datas = Pembelian::where('status', '!=','pending')->get();
 
         foreach($datas as $data){
             $data_produk_show = Produk::where('id_produk', $data['id_produk'])->first();
