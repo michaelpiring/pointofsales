@@ -18,16 +18,17 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $weeklyDate =  Carbon::today()->subDays(7);
+        $weeklyDate =  Carbon::now()->subDays(7);
         $data = [];
-        $data['sales'] = Penjualan::where('tgl_penjualan', '>=', $weeklyDate)->count();
-        $data['purchase'] = Pembelian::where('tgl_pembelian', '>=', $weeklyDate)->count();
-        $data['customer'] = Penjualan::where('tgl_penjualan', '>=', $weeklyDate)->groupBy('id_user')->count();
-        $data['gross profit'] = Penjualan::where('tgl_penjualan', '>=', $weeklyDate)->sum('total_penjualan');
+        $data['sales'] = Penjualan::whereBetween('tgl_penjualan',[$weeklyDate,Carbon::now()])->count();
+        $data['purchase'] = Pembelian::whereBetween('tgl_pembelian',[$weeklyDate,Carbon::now()])->count();
+        $data['customer'] = Penjualan::whereBetween('tgl_penjualan',[$weeklyDate,Carbon::now()])->groupBy('id_user')->count();
+        $data['gross profit'] = Penjualan::whereBetween('tgl_penjualan',[$weeklyDate,Carbon::now()])->sum('total_penjualan');
         if($data){
             return response()->json([
                 'success' => true,
-                'data' => $data
+                'data' => $data,
+                'date' => $weeklyDate
             ],201);
         }
         else{
@@ -114,7 +115,7 @@ class ReportController extends Controller
                 $result['date'] = $date;
                 return response()->json([
                     'success' => true,
-                    'data' => $result
+                    'data' => $result,
                 ],201);
             }
 
