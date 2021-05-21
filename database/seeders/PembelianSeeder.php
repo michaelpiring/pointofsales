@@ -34,11 +34,11 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2020-03-10',
-                'jumlah_barang' => 50,
-                'total_pembelian' => 750000,
-                'harga_beli' => 15000,
-                'status' => 'success',
+                'tgl_pembelian' => $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now', $timezone = null),
+                'jumlah_barang' => $faker->numberBetween($min = 50, $max = 150),
+                'total_pembelian' => $faker->numberBetween($min = 100000, $max = 200000),
+                'harga_beli' => $faker->numberBetween($min = 100000, $max = 200000),
+                'status' => $faker->randomElement($array = array ('success','pending')),
     		]);
 
         }
@@ -50,11 +50,11 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2020-06-10',
-                'jumlah_barang' => 50,
-                'total_pembelian' => 750000,
-                'harga_beli' => 15000,
-                'status' => 'success',
+                'tgl_pembelian' => $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now', $timezone = null),
+                'jumlah_barang' => $faker->numberBetween($min = 50, $max = 150),
+                'total_pembelian' => $faker->numberBetween($min = 100000, $max = 200000),
+                'harga_beli' => $faker->numberBetween($min = 100000, $max = 200000),
+                'status' => $faker->randomElement($array = array ('success','pending')),
     		]);
             
         }
@@ -66,11 +66,11 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2020-09-10',
-                'jumlah_barang' => 50,
-                'total_pembelian' => 750000,
-                'harga_beli' => 15000,
-                'status' => 'success',
+                'tgl_pembelian' => $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now', $timezone = null),
+                'jumlah_barang' => $faker->numberBetween($min = 50, $max = 150),
+                'total_pembelian' => $faker->numberBetween($min = 100000, $max = 200000),
+                'harga_beli' => $faker->numberBetween($min = 100000, $max = 200000),
+                'status' => $faker->randomElement($array = array ('success','pending')),
     		]);
             
         
@@ -83,11 +83,11 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2020-12-10',
-                'jumlah_barang' => 50,
-                'total_pembelian' => 750000,
-                'harga_beli' => 15000,
-                'status' => 'success',
+                'tgl_pembelian' => $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now', $timezone = null),
+                'jumlah_barang' => $faker->numberBetween($min = 50, $max = 150),
+                'total_pembelian' => $faker->numberBetween($min = 100000, $max = 200000),
+                'harga_beli' => $faker->numberBetween($min = 100000, $max = 200000),
+                'status' => $faker->randomElement($array = array ('success','pending')),
     		]);
             
         }
@@ -99,11 +99,11 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2021-03-10',
-                'jumlah_barang' => 50,
-                'total_pembelian' => 750000,
-                'harga_beli' => 15000,
-                'status' => 'success',
+                'tgl_pembelian' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                'jumlah_barang' => $faker->numberBetween($min = 50, $max = 150),
+                'total_pembelian' => $faker->numberBetween($min = 100000, $max = 200000),
+                'harga_beli' => $faker->numberBetween($min = 100000, $max = 200000),
+                'status' => $faker->randomElement($array = array ('success','pending')),
     		]);
             
         }
@@ -115,11 +115,11 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2021-06-10',
-                'jumlah_barang' => 50,
-                'total_pembelian' => 750000,
-                'harga_beli' => 15000,
-                'status' => 'success',
+                'tgl_pembelian' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                'jumlah_barang' => $faker->numberBetween($min = 50, $max = 150),
+                'total_pembelian' => $faker->numberBetween($min = 100000, $max = 200000),
+                'harga_beli' => $faker->numberBetween($min = 100000, $max = 200000),
+                'status' => $faker->randomElement($array = array ('success','pending')),
     		]);
             
         }
@@ -131,11 +131,11 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2021-09-10',
-                'jumlah_barang' => 50,
-                'total_pembelian' => 750000,
-                'harga_beli' => 15000,
-                'status' => 'success',
+                'tgl_pembelian' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                'jumlah_barang' => $faker->numberBetween($min = 50, $max = 150),
+                'total_pembelian' => $faker->numberBetween($min = 100000, $max = 200000),
+                'harga_beli' => $faker->numberBetween($min = 100000, $max = 200000),
+                'status' => $faker->randomElement($array = array ('success','pending')),
     		]);
             
 
@@ -148,11 +148,11 @@ class PembelianSeeder extends Seeder
                 'id_pegawai' => $faker->randomElement($id_pegawai),
     			'id_produk' => $faker->randomElement($id_produk),
                 'id_supplier' => $faker->randomElement($id_supplier),
-                'tgl_pembelian' => '2021-12-10',
-                'jumlah_barang' => 50,
-                'total_pembelian' => 750000,
-                'harga_beli' => 15000,
-                'status' => 'success',
+                'tgl_pembelian' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                'jumlah_barang' => $faker->numberBetween($min = 50, $max = 150),
+                'total_pembelian' => $faker->numberBetween($min = 100000, $max = 200000),
+                'harga_beli' => $faker->numberBetween($min = 100000, $max = 200000),
+                'status' => $faker->randomElement($array = array ('success','pending')),
     		]);
         }
     }
