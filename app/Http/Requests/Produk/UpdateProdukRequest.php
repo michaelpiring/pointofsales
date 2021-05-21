@@ -34,7 +34,7 @@ class UpdateProdukRequest extends FormRequest
             'berat_produk' => 'required|numeric',
             'deskripsi_produk' => 'required|max:199',
             'id_pegawai' => 'required|numeric',
-            'password_pegawai' => 'required',
+            'password' => 'required',
         ];
     }
 }

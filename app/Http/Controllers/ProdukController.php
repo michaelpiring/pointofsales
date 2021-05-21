@@ -188,7 +188,7 @@ class ProdukController extends Controller
                 }
 
                 $data_pegawai = Pegawai::where('id_pegawai',$data['id_pegawai'])->first();
-                if(Hash::check($data['password_pegawai'],$data_pegawai['password_pegawai'])){
+                if(Hash::check($data['password'],$data_pegawai['password'])){
                     $result = $produk->update([
                         'id_supplier'        => $data['id_supplier'],
                         'id_kategori'        => $data['id_kategori'],
