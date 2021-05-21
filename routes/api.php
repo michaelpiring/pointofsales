@@ -76,6 +76,7 @@ Route::put('stok-opname/{stok-opname}/approveStokOpname', [StokOpnameController:
 Route::put('stok-opname/{stok-opname}/unapproveStokOpname', [StokOpnameController::class,'unapproveStokOpname']);
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login_pegawai', [AuthController::class, 'loginPegawai']);
 Route::post('/register_user', [AuthController::class, 'registerUser']);
 Route::post('/register_pegawai', [AuthController::class, 'registerPegawai']);
 

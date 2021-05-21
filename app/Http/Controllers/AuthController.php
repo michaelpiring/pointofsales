@@ -23,7 +23,7 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:user,pegawai', ['except' => ['login', 'registerUser', 'registerPegawai']]);
+        $this->middleware('auth:user,pegawai', ['except' => ['login', 'registerUser', 'registerPegawai', 'loginPegawai']]);
     }
 
     /**
@@ -37,7 +37,12 @@ class AuthController extends Controller
             return $this->createNewToken($token);   
         }
 
-        elseif ($token = Auth::guard('pegawai')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    public function loginPegawai(Request $request){
+
+        if ($token = Auth::guard('pegawai')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return $this->createNewToken($token);   
         }
 
