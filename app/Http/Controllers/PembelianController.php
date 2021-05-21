@@ -85,7 +85,7 @@ class PembelianController extends Controller
             $data_produk['stok'] = $data_produk['stok']+$data_pembelian['jumlah_barang'];
             $update_produk = $data_produk->update([
                 'stok' => $data_produk['stok'],
-                'harga_produk' => $data_pembelian['harga_beli']
+                'harga_beli' => $data_pembelian['harga_beli']
             ]);
             if($update_produk){
                 $pembelian->update([
