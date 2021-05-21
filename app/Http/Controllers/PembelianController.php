@@ -35,7 +35,7 @@ class PembelianController extends Controller
         ], 201);
     }
 
-    public function indexPembelianValidated()
+    public function indexPembelianPending()
     {
         $pembelians = Pembelian::where('status','pending')->get();
 
