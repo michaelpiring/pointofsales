@@ -31,12 +31,26 @@ class PegawaiSeeder extends Seeder
             'status' => 'aktif'
         ]);
 
+        DB::table('tb_pegawai')->insert([
+            'id_pegawai' => 2,
+            'id_toko' => 1,
+            'id_jabatan' => 2,
+            'id_divisi' => 2,
+    		'nama_pegawai' =>'admingudang',
+            'email' => 'admingudang@gmail.com',
+            'password' => bcrypt('admingudang'),
+            'nik_pegawai' => '321654987',
+            'alamat_pegawai' => 'Jalan Jawa',
+            'tgl_lahir_pegawai' => '1999-11-21',
+            'status' => 'aktif'
+        ]);
+
         $faker = Faker::create();
 
         $id_jabatan = DB::table('tb_jabatan')->pluck('id_jabatan');
         $id_divisi = DB::table('tb_divisi')->pluck('id_divisi');
 
-        for($i=2;$i<=8;$i++){
+        for($i=3;$i<=8;$i++){
             DB::table('tb_pegawai')->insert([
                 'id_pegawai' => $i,
                 'id_toko' => 1,

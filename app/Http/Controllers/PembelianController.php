@@ -100,42 +100,56 @@ class PembelianController extends Controller
 
     public function ValidasiPembelian(Pembelian $pembelian)
     {
-        if($pembelian['status']=='pending'){ 
-            //status pending
-            $data_produk = Produk::where('id_produk', $pembelian['id_produk'])->first();
-            $data_pembelian = Pembelian::where('id_pembelian', $pembelian['id_pembelian'])->first();
+        $cek_user = auth()->user();
 
-            $data_produk['stok'] = $data_produk['stok']+$data_pembelian['jumlah_barang'];
-            $update_produk = $data_produk->update([
-                'stok' => $data_produk['stok'],
-                'harga_beli' => $data_pembelian['harga_beli']
-            ]);
-            if($update_produk){
-                $pembelian->update([
-                    'status'=>'success'
+        if($cek_user['id_jabatan'] == '2'){
+
+            //proses validasi
+            if($pembelian['status']=='pending'){ 
+                //status pending
+                $data_produk = Produk::where('id_produk', $pembelian['id_produk'])->first();
+                $data_pembelian = Pembelian::where('id_pembelian', $pembelian['id_pembelian'])->first();
+    
+                $data_produk['stok'] = $data_produk['stok']+$data_pembelian['jumlah_barang'];
+                $update_produk = $data_produk->update([
+                    'stok' => $data_produk['stok'],
+                    'harga_beli' => $data_pembelian['harga_beli']
                 ]);
-
-                $pembelian['stok masuk'] = $data_pembelian['jumlah_barang'];
+                if($update_produk){
+                    $pembelian->update([
+                        'status'=>'success'
+                    ]);
+    
+                    $pembelian['stok masuk'] = $data_pembelian['jumlah_barang'];
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Berhasil validasi Pembelian, Stok ditambahkan',
+                        'data'    => $pembelian
+                    ], 200);
+                }            
+            }
+            if($pembelian['status']=='success'){ //status success
                 return response()->json([
                     'success' => true,
-                    'message' => 'Berhasil validasi Pembelian, Stok ditambahkan',
+                    'message' => 'Data Pembelian telah divalidasi!',
                     'data'    => $pembelian
-                ], 200);
-            }            
-        }
-        if($pembelian['status']=='success'){ //status success
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Pembelian telah divalidasi!',
-                'data'    => $pembelian
-            ], 409);
+                ], 409);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal validasi Data Pembelian',
+                ], 409);
+            }
         }
         else{
+            //error
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal validasi Data Pembelian',
+                'message' => 'Validasi Pembelian hanya dapat dilakukan Kepala Gudang!',
             ], 409);
         }
+        
     }
 
     /**

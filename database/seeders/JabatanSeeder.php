@@ -22,10 +22,14 @@ class JabatanSeeder extends Seeder
         ]);
         DB::table('tb_jabatan')->insert([
             'id_jabatan' => 2,
-            'jabatan' => 'Staff Kasir'
+            'jabatan' => 'Kepala Gudang'
         ]);
         DB::table('tb_jabatan')->insert([
             'id_jabatan' => 3,
+            'jabatan' => 'Staff Kasir'
+        ]);
+        DB::table('tb_jabatan')->insert([
+            'id_jabatan' => 4,
             'jabatan' => 'Staff Gudang'
         ]);
     }
