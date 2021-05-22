@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PromoProduk\CreatePromoProdukRequest;
 use App\Models\PromoProduk;
+use App\Models\Produk;
 
 class PromoProdukController extends Controller
 {
@@ -15,11 +16,17 @@ class PromoProdukController extends Controller
      */
     public function index()
     {
-        $data = PromoProduk::where('status','aktif')->get();
+        $datas = PromoProduk::where('status','aktif')->get();
+
+        foreach ($datas as $data){
+            $data_produk = Produk::where('id_produk', $data['id_produk'])->first();
+
+            $data['nama_produk'] = $data_produk['nama_produk'];
+        }
         return response()->json([
             'success' => true,
             'message' => 'Ini Index Promo Produk',
-            'data'    => $data
+            'data'    => $datas
         ], 201);
     }
 
