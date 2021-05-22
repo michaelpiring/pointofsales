@@ -20,9 +20,9 @@ class PembelianController extends Controller
     public function index()
     {
         $datas = Pembelian::where('status', '!=','pending')->get();
-        $pembelian = Pembelian::all();
+        // $pembelian = Pembelian::all();
 
-        $datas = $pembelian->sortBy('tgl_pembelian');
+        // $datas = $pembelian->sortBy('tgl_pembelian');
 
         foreach($datas as $data){
             $data_produk_show = Produk::where('id_produk', $data['id_produk'])->first();
@@ -40,9 +40,9 @@ class PembelianController extends Controller
 
     public function indexPembelianPending()
     {
-        $pembelians = Pembelian::where('status','pending')->get();
+        $datas = Pembelian::where('status','pending')->get();
 
-        $datas = $pembelians->sortBy('tgl_pembelian');
+        // $datas = $pembelians->sortBy('tgl_pembelian');
 
         foreach($datas as $data){
             $data_produk_show = Produk::where('id_produk', $data['id_produk'])->first();
