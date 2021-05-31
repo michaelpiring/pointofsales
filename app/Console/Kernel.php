@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\UpdatePromoDiskon::class,
+        Commands\UpdatePromoProduk::class,
     ];
 
     /**
@@ -25,6 +26,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('update:promodiskon')
+        ->everyMinute();
+        $schedule->command('update:promoproduk')
+        ->everyMinute();
     }
 
     /**

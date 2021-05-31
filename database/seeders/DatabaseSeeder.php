@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PenjualanSeeder::class);
         $this->call(PembelianSeeder::class);
         $this->call(PromoProdukSeeder::class);
+        $this->call(PromoSupplierSeeder::class);
     }
 }
