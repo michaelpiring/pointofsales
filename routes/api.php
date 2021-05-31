@@ -24,9 +24,11 @@ Route::group([
 
 ], function ($router) {
 
-    Route::apiResource('keranjang', KeranjangController::class);
-    Route::apiResource('checkout', CheckoutController::class);
+    
 });
+
+// route user dan pegawai
+
 
 //route pegawai
 
@@ -35,14 +37,13 @@ Route::group([
 
 ], function ($router) {
 
-    Route::apiResource('toko', TokoController::class);
     Route::put('toko/{toko}/aktivasi_toko', [TokoController::class,'aktivasiToko']);
     Route::apiResource('supplier', SupplierController::class);
     Route::put('supplier/{supplier}/aktivasi_supplier', [SupplierController::class,'aktivasiSupplier']);
-    Route::apiResource('promo-diskon', PromoDiskonController::class);
+    
     Route::apiResource('kategori', KategoriController::class);
     Route::put('kategori/{kategori}/aktivasi_kategori', [KategoriController::class,'aktivasiKategori']);
-    Route::apiResource('produk', ProdukController::class);
+    
     Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
     Route::post('/produk/showByBarcode', [ProdukController::class,'showByBarcode']);
     Route::apiResource('user', UserController::class);
@@ -54,15 +55,21 @@ Route::group([
     Route::apiResource('pembelian', PembelianController::class);
     Route::put('pembelian/{pembelian}/ValidasiPembelian', [PembelianController::class,'ValidasiPembelian']);
     Route::get('/getPembelianPending', [PembelianController::class,'indexPembelianPending']);
-    Route::apiResource('penjualan', PenjualanController::class);
+    
     Route::apiResource('retur', ReturController::class);
     Route::put('retur/{retur}/validasiRetur', [ReturController::class,'validasiRetur']);
-
-    Route::apiResource('hutang', PembayaranHutangController::class);
-    Route::get('/indexHutang_user/{id}',[PembayaranHutangController::class, 'indexHutangUser']);
-
-    Route::apiResource('promo-produk', PromoProdukController::class);
 });
+
+Route::apiResource('keranjang', KeranjangController::class);
+Route::apiResource('checkout', CheckoutController::class);
+Route::apiResource('penjualan', PenjualanController::class);
+Route::apiResource('hutang', PembayaranHutangController::class);
+Route::get('/indexHutang_user/{id}',[PembayaranHutangController::class, 'indexHutangUser']);
+
+Route::apiResource('produk', ProdukController::class);
+Route::apiResource('toko', TokoController::class);
+Route::apiResource('promo-diskon', PromoDiskonController::class);
+Route::apiResource('promo-produk', PromoProdukController::class);
 
 Route::apiResource('report', ReportController::class);
 Route::post('/report/purchase', [ReportController::class, 'purchaseChart']);
