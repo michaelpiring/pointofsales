@@ -46,12 +46,12 @@ Route::group([
     
     Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
     Route::post('/produk/showByBarcode', [ProdukController::class,'showByBarcode']);
-    Route::apiResource('user', UserController::class);
+    
     Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);
     Route::post('/user/getUser', [UserController::class,'showUser']);
-    Route::apiResource('pegawai', PegawaiController::class);
+    
     Route::put('pegawai/{pegawai}/aktivasi_pegawai', [PegawaiController::class,'aktivasiPegawai']);
-    Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
+    
     Route::apiResource('pembelian', PembelianController::class);
     Route::put('pembelian/{pembelian}/ValidasiPembelian', [PembelianController::class,'ValidasiPembelian']);
     Route::get('/getPembelianPending', [PembelianController::class,'indexPembelianPending']);
@@ -70,6 +70,11 @@ Route::apiResource('produk', ProdukController::class);
 Route::apiResource('toko', TokoController::class);
 Route::apiResource('promo-diskon', PromoDiskonController::class);
 Route::apiResource('promo-produk', PromoProdukController::class);
+
+Route::apiResource('pegawai', PegawaiController::class);
+Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
+
+Route::apiResource('user', UserController::class);
 
 Route::apiResource('report', ReportController::class);
 Route::post('/report/purchase', [ReportController::class, 'purchaseChart']);
