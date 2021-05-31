@@ -79,7 +79,7 @@ class PenjualanController extends Controller
                 //status checkout = belum dibayar, lanjutkan transaksi
 
                 //cek metode pembayaran
-                if($data['metode_pembayaran']=="cash"){
+                if($data_checkout['metode_pembayaran']=="cash"){
                     //create data penjualan
                     $data['id_user'] = $data_user['id'];
                     $data['tgl_penjualan'] = now();
@@ -134,21 +134,22 @@ class PenjualanController extends Controller
                             'total_poin_user' => $data_user['total_poin_user']+$total_poin
                         ]);
 
+                        $data['poin'] = $total_poin;
+
                         return response()->json([
                             'success' => true,
                             'message' => 'Transaksi Berhasil!',
-                            'data'    => $data,
-                            'poin'    => $total_poin 
+                            'data'    => $data
                         ], 201);
                     }
                 }
 
-                if($data['metode_pembayaran']=="hutang"){ 
+                if($data_checkout['metode_pembayaran']=="hutang"){ 
                     //create data penjualan & hutang
                     $data['id_user'] = $data_user['id'];
                     $data['tgl_penjualan'] = now();
                     $data['total_checkout'] = $data_checkout['total_checkout'];
-                    $data['total_penjualan'] = $data_checkout['total_checkout'];
+                    $data['total_penjualan'] = '0';
                     $data['metode_pembayaran'] = 'hutang';
                     $data['status'] = 'belum dibayar';
     
@@ -199,15 +200,17 @@ class PenjualanController extends Controller
                             'status' => 'sudah dibayar'
                         ]);
 
+                        $data['besar_hutang'] = $data['total_checkout'];
+
                         return response()->json([
                             'success' => true,
                             'message' => 'Transaksi Hutang Berhasil!',
-                            'data'    => $create_hutang 
+                            'data'    => $data 
                         ], 201);
                     }
                 }
 
-                if($data['metode_pembayaran']=="split"){
+                if($data_checkout['metode_pembayaran']=="split"){
                     //create data penjualan & hutang (split payment)
                     //ganti total penjualan di tb penjualan
                     //ganti besar hutang di tb hutang
@@ -271,10 +274,12 @@ class PenjualanController extends Controller
                             'status' => 'sudah dibayar'
                         ]);
 
+                        $data['besar_hutang'] = $sisa_hutang;
+
                         return response()->json([
                             'success' => true,
                             'message' => 'Transaksi Split Berhasil!',
-                            'data'    => $create_hutang 
+                            'data'    => $data 
                         ], 201);
                     }
                 }

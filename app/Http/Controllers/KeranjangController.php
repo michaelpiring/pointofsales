@@ -153,11 +153,24 @@ class KeranjangController extends Controller
     public function show($id)
     {
         if($id){
-            $data = DetailKeranjang::where('id_keranjang', $id)->get();
+            $datas = DetailKeranjang::where('id_keranjang', $id)->get();
+
+            foreach($datas as $data){
+                $produk = Produk::where('id_produk',$data['id_produk'])->first();
+                $nama_produk = $produk['nama_produk'];
+                $data['nama_produk'] = $nama_produk;
+                
+                $harga_produk = $produk['harga_produk'];
+                $data['harga_produk'] = $harga_produk;
+                
+                $foto_produk = $produk['foto_produk'];
+                $data['foto_produk'] = $foto_produk;
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Detail Data Keranjang',
-                'data'    => $data
+                'data'    => $datas
             ], 200);
         }
         else{

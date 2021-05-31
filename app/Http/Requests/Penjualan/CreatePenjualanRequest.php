@@ -27,7 +27,6 @@ class CreatePenjualanRequest extends FormRequest
             'id_checkout' => 'required|numeric',
             'id_pegawai' => 'required|numeric',
             'id_toko' => 'required|numeric',
-            'metode_pembayaran' => 'required',
             'jumlah_bayar' => 'required|numeric'
         ];
     }
