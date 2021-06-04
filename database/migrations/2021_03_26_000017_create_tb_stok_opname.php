@@ -20,7 +20,7 @@ class CreateTbStokOpname extends Migration
             $table->integer('id_pegawai')->unsigned();
             $table->foreign('id_pegawai')->references('id_pegawai')->on('tb_pegawai')->onDelete('restrict')->onUpdate('cascade');
             $table->datetime('tgl_stok_opname');
-            $table->string('status');
+            $table->enum('status',['approved','pending validation','canceled','on progress','unapproved']);;
         });
         Schema::enableForeignKeyConstraints();
     }
