@@ -113,27 +113,18 @@ class KategoriController extends Controller
                     $result = $kategori->update([
                         'kategori'  => $data['kategori'],
                     ]);
-                    return response()->json([
-                        'success'   => true,
-                        'message'   => $result,
-                    ], 401);
-                //     if($result){
-                //         return response()->json([
-                //             'success'   => true,
-                //             'message'   => 'Berhasil meng-update data Kategori',
-                //             'data'      => $result
-                //         ], 201);
-                //     }else{
-                //         return response()->json([
-                //             'success'   => false,
-                //             'message'   => 'gagal Update Kategori',
-                //         ], 401);
-                //     }
-                }else{
-                    return response()->json([
-                        'success'   => false,
-                        'message'   => 'password is not valid',
-                    ], 401);
+                    if($result){
+                        return response()->json([
+                            'success'   => true,
+                            'message'   => 'Berhasil meng-update data Kategori',
+                            'data'      => $result
+                        ], 201);
+                    }else{
+                        return response()->json([
+                            'success'   => false,
+                            'message'   => 'gagal Update Kategori',
+                        ], 401);
+                    }
                 }
                 }
             }

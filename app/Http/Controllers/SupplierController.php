@@ -111,7 +111,7 @@ class SupplierController extends Controller
             }
             else{
                 $data_pegawai = Pegawai::where('id_pegawai',$data['id_pegawai'])->first();
-                if(Hash::check($data['password_pegawai'],$data_pegawai['password_pegawai'])){
+                if(Hash::check($data['password_pegawai'],$data_pegawai['password'])){
                     $result = $supplier->update([
                         'nama_supplier'             => $data['nama_supplier'],
                         'alamat_supplier'           => $data['alamat_supplier'],
