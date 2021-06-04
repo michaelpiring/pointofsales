@@ -58,6 +58,13 @@ Route::group([
     
     Route::apiResource('retur', ReturController::class);
     Route::put('retur/{retur}/validasiRetur', [ReturController::class,'validasiRetur']);
+
+    
+    Route::apiResource('stok-opname', StokOpnameController::class);
+    Route::post('stok-opname/getDetailProductForStockOpname', [StokOpnameController::class,'getDetailProductForStockOpname']);
+    Route::post('stok-opname/storeStokOpname', [StokOpnameController::class,'storeStokOpname']);
+    Route::put('stok-opname/{stok-opname}/approveStokOpname', [StokOpnameController::class,'approveStokOpname']);
+    Route::put('stok-opname/{stok-opname}/unapprove', [StokOpnameController::class,'unapproveStokOpname']);
 });
 
 Route::apiResource('keranjang', KeranjangController::class);
@@ -75,18 +82,15 @@ Route::apiResource('pegawai', PegawaiController::class);
 Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
 
 Route::apiResource('user', UserController::class);
+    Route::apiResource('promo-produk', PromoProdukController::class);
+
 
 Route::apiResource('report', ReportController::class);
 Route::post('/report/purchase', [ReportController::class, 'purchaseChart']);
 Route::post('/report/sales', [ReportController::class, 'salesChart']);
+Route::post('/report/SalesCategorySummary', [ReportController::class, 'SalesCategorySummary']);
+Route::post('/report/PurchaseCategorySummary', [ReportController::class, 'PurchaseCategorySummary']);
 Route::get('/report',[ReportController::class, 'index']);
-
-Route::apiResource('stok-opname', StokOpnameController::class);
-Route::post('stok-opname/{stok-opname}/stokOpnameSementara', [StokOpnameController::class,'stokOpnameProdukSementara']);
-Route::get('stok-opname/{stok-opname}/showstokOpnameSementara', [StokOpnameController::class,'showStokOpnameSementara']);
-Route::post('stok-opname/{stok-opname}/storeStokOpname', [StokOpnameController::class,'storeStokOpname']);
-Route::put('stok-opname/{stok-opname}/approveStokOpname', [StokOpnameController::class,'approveStokOpname']);
-Route::put('stok-opname/{stok-opname}/unapproveStokOpname', [StokOpnameController::class,'unapproveStokOpname']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/login_pegawai', [AuthController::class, 'loginPegawai']);
