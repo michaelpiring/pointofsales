@@ -53,7 +53,6 @@ class KategoriController extends Controller
             ], 404);
         }
         else{
-            $data['status'] = 'aktif';
             $create_kategori = Kategori::create($data);
             if($create_kategori){
                 return response()->json([
@@ -110,22 +109,35 @@ class KategoriController extends Controller
             }
             else{
                 $data_pegawai = Pegawai::where('id_pegawai',$data['id_pegawai'])->first();
-                if(Hash::check($data['password_pegawai'],$data_pegawai['password_pegawai'])){
+                if(Hash::check($data['password_pegawai'],$data_pegawai['password'])){
                     $result = $kategori->update([
-                        'id_toko'          => $data['id_toko'],
-                        'kategori'             => $data['kategori'],
+                        'kategori'  => $data['kategori'],
                     ]);
-                    if($result){
-                        return response()->json([
-                            'success'   => true,
-                            'message'   => 'Berhasil meng-update data Kategori',
-                            'data'      => $result
-                        ], 201);
-                    }
+                    return response()->json([
+                        'success'   => true,
+                        'message'   => $result,
+                    ], 401);
+                //     if($result){
+                //         return response()->json([
+                //             'success'   => true,
+                //             'message'   => 'Berhasil meng-update data Kategori',
+                //             'data'      => $result
+                //         ], 201);
+                //     }else{
+                //         return response()->json([
+                //             'success'   => false,
+                //             'message'   => 'gagal Update Kategori',
+                //         ], 401);
+                //     }
+                }else{
+                    return response()->json([
+                        'success'   => false,
+                        'message'   => 'password is not valid',
+                    ], 401);
+                }
                 }
             }
         }
-    }
 
     /**
      * Remove the specified resource from storage.
