@@ -18,6 +18,7 @@ use App\Http\Controllers\AuthController;
 */
 
 //route user
+//update pembelian
 
 Route::group([
     'middleware' => 'auth:user'
