@@ -120,6 +120,7 @@ class StokOpnameController extends Controller
             }                                     
         }
     }
+
     public function storeStokOpname(Request $request){
         $validate = $request->validate([
             'id_toko' => 'required',
@@ -219,7 +220,24 @@ class StokOpnameController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = DetailStokOpname::where('id_stok_opname',$id)->get();
+        if($data){
+            foreach($data as $d){
+                $data_produk_show = Produk::where('id_produk', $d['id_produk'])->first();
+                $d['nama_produk'] = $data_produk_show['nama_produk'];
+            }
+            $dataStockOpname = StokOpname::where('id_stok_opname',$id)->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => $data,
+                'stock_opname' => $dataStockOpname
+            ],201);
+        }else{
+            return response()->json([
+                'success' => false,
+            ],401);
+        }
     }
 
     /**
@@ -268,7 +286,7 @@ class StokOpnameController extends Controller
         $data = StokOpname::where('id_stok_opname', $id)->first();
         if($data){
             if($cek_user['id_jabatan'] == '2'){
-                $data->update(['status' => 'approved']);
+                $data->update(['status' => 'unapproved']);
                 return response()->json([
                     'success' => true
                 ],201);

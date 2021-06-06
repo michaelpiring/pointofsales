@@ -19,7 +19,8 @@ class DetailStokOpname extends Model
         'stok_keluar',
         'stok_sistem',
         'stok_fisik',
-        'selisih'
+        'selisih',
+        'keterangan'
     ];
     public $timestamps = false;
 }

@@ -24,7 +24,7 @@ class CreateTbDetailStokOpname extends Migration
             $table->integer('stok_sistem');
             $table->integer('stok_fisik');
             $table->integer('selisih');
-            $table->text('keterangan');
+            $table->string('keterangan');
         });
     }
 

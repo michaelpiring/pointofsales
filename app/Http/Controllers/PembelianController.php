@@ -235,6 +235,7 @@ class PembelianController extends Controller
         return response()->json([
             'success' => false,
             'message' => 'Gagal mengubah status pembelian menjadi gagal',
+            'data' => $pembelian
         ], 409);
     }
 }
