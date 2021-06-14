@@ -93,6 +93,10 @@ Route::post('/report/SalesCategorySummary', [ReportController::class, 'SalesCate
 Route::post('/report/PurchaseCategorySummary', [ReportController::class, 'PurchaseCategorySummary']);
 Route::get('/report',[ReportController::class, 'index']);
 
+//app kasir
+Route::apiResource('loginpegawai', LoginController::class);
+//
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/login_pegawai', [AuthController::class, 'loginPegawai']);
 Route::post('/register_user', [AuthController::class, 'registerUser']);
