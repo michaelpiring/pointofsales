@@ -317,6 +317,22 @@ class PenjualanController extends Controller
         }
     }
 
+    public function historyTransaksiUser($id)
+    {
+        $data = Penjualan::where('id_user', $id)->orderBy('tgl_penjualan', 'desc')->get();
+        if($data){
+            return response()->json([
+                'success' => true,
+                'message' => 'History Transaksi User',
+                'data'    => $data
+            ], 201);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'User tidak memiliki data Transaksi!',
+        ], 404);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

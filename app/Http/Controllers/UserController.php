@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Keranjang;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\UpdatePasswordUserRequest;
 
 use Hash;
 
@@ -154,6 +155,41 @@ class UserController extends Controller
                 ], 409);
             }
         }
+    }
+
+    public function changePasswordUser(UpdatePasswordUserRequest $request, User $user){
+        if($user){
+            $data = $request->validated();
+            if($data){
+                if(Hash::check($data['password_lama'],$user['password'])){
+                    $new_password = bcrypt($data['password_baru']);
+                    $user->update([
+                        'password' => $new_password
+                    ]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Berhasil Mengubah Password User'
+                    ],201);
+                }
+                else{
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Password Salah!'
+                    ],403);
+                }
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data tidak valid!', 
+                ],409);
+            }
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Data User tidak ditemukan!'
+        ],404);
     }
 
     /**

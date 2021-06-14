@@ -83,8 +83,11 @@ Route::apiResource('pegawai', PegawaiController::class);
 Route::put('pegawai/{pegawai}/ganti_password', [PegawaiController::class,'changePassword']);
 
 Route::apiResource('user', UserController::class);
-    Route::apiResource('promo-produk', PromoProdukController::class);
+Route::apiResource('promo-produk', PromoProdukController::class);
 
+Route::put('user/{user}/ganti_password_user', [UserController::class,'changePasswordUser']);
+
+Route::get('/history_transaksi_user/{id}',[PenjualanController::class, 'historyTransaksiUser']);
 
 Route::apiResource('report', ReportController::class);
 Route::post('/report/purchase', [ReportController::class, 'purchaseChart']);

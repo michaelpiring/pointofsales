@@ -158,10 +158,10 @@ class PegawaiController extends Controller
         if($pegawai){
             $data = $request->validated();
             if($data){
-                if(Hash::check($data['password_lama'],$pegawai['password_pegawai'])){
+                if(Hash::check($data['password_lama'],$pegawai['password'])){
                     $new_password = bcrypt($data['password_baru']);
                     $pegawai->update([
-                        'password_pegawai' => $new_password
+                        'password' => $new_password
                     ]);
 
                     return response()->json([
