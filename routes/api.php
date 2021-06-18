@@ -46,7 +46,7 @@ Route::group([
     Route::put('kategori/{kategori}/aktivasi_kategori', [KategoriController::class,'aktivasiKategori']);
     
     Route::put('produk/{produk}/aktivasi_produk', [ProdukController::class,'aktivasiProduk']);
-    Route::post('/produk/showByBarcode', [ProdukController::class,'showByBarcode']);
+
     
     Route::put('user/{user}/aktivasi_user', [UserController::class,'aktivasiUser']);
     Route::post('/user/getUser', [UserController::class,'showUser']);
@@ -88,6 +88,8 @@ Route::apiResource('promo-produk', PromoProdukController::class);
 Route::put('user/{user}/ganti_password_user', [UserController::class,'changePasswordUser']);
 
 Route::get('/history_transaksi_user/{id}',[PenjualanController::class, 'historyTransaksiUser']);
+
+Route::post('/produk/showByBarcode', [ProdukController::class,'showByBarcode']);
 
 Route::apiResource('report', ReportController::class);
 Route::post('/report/purchase', [ReportController::class, 'purchaseChart']);
