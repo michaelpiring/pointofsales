@@ -91,6 +91,8 @@ Route::get('/history_transaksi_user/{id}',[PenjualanController::class, 'historyT
 
 Route::post('/produk/showByBarcode', [ProdukController::class,'showByBarcode']);
 
+Route::post('/penjualan/detailProdukDataPenjualan', [PenjualanController::class,'detailProdukDataPenjualan']);
+
 Route::apiResource('report', ReportController::class);
 Route::post('/report/purchase', [ReportController::class, 'purchaseChart']);
 Route::post('/report/sales', [ReportController::class, 'salesChart']);

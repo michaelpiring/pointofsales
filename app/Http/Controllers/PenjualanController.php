@@ -333,6 +333,26 @@ class PenjualanController extends Controller
         ], 404);
     }
 
+    public function detailProdukDataPenjualan(Request $request)
+    {
+        $id_penjualan = $request->input('id_penjualan');
+        $id_user = $request->input('id_user');
+
+        //data detail penjualans
+        $datas = DetailPenjualan::where('id_penjualan', $id_penjualan)->where('id_user', $id_user)->get();
+        
+        foreach($datas as $data){
+            $data_produk = Produk::where('id_produk',$data['id_produk'])->first();
+            
+            $rekaps[]=$data_produk;
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Ini Index Produk pada Data Penjualan',
+            'data'    => $rekaps
+        ], 201);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
